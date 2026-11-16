@@ -21,8 +21,8 @@ const ADDRESS = 'Office No. 01, M-Floor, Building C-225, Shabiya-12, Mussafah Co
 
 const services = [
   { n: '01', icon: UsersRound, title: 'Manpower services', text: 'Workforce sourcing and supply aligned with client requirements, skills and operational needs.' },
-  { n: '02', icon: Gauge, title: 'Process & benefits', text: 'A structured path from requirements to selection, helping clients move with clarity and speed.' },
-  { n: '03', icon: Headphones, title: 'Workforce support', text: 'Candidate sourcing and selection with attention to capability, readiness and deployment.' },
+  { n: '02', icon: Gauge, title: 'Process & benefits', text: 'Flexible staffing that adapts to changing business needs, with payroll, benefits and compliance coordination to reduce the administrative workload.' },
+  { n: '03', icon: Headphones, title: 'Workforce support', text: 'Vetted personnel supported by thorough inductions and regular training, with scalable teams aligned to your project requirements.' },
   { n: '04', icon: Factory, title: 'Oil & gas', text: 'Industrial manpower support built for demanding oil and gas environments.' },
   { n: '05', icon: Construction, title: 'Civil & construction', text: 'Dependable workforce support for civil projects, construction sites and skilled trades.' },
   { n: '06', icon: Wrench, title: 'Mechanical & electrical', text: 'Skilled technical personnel for mechanical, electrical and industrial requirements.' },
@@ -48,16 +48,25 @@ const clients = [
   ['CPP China Petroleum Pipeline Engineering', '26-cpp-china-petroleum-pipeline-engineering.webp'],
 ];
 
-const profileGallery = [
-  ['/images/profile/workforce-team-1.webp', 'Pak Arab Manpower Supply LLC workforce at an industrial facility', 'Industrial workforce'],
-  ['/images/profile/workforce-team-2.webp', 'Pak Arab Manpower Supply LLC technical team at an oil and gas facility', 'Technical team'],
-  ['/images/profile/quality-services-profile.webp', 'Quality management and services company profile page', 'Quality & services'],
-  ['/images/profile/workforce-categories-profile.webp', 'Onshore and offshore workforce categories company profile page', 'Available workforce'],
-  ['/images/profile/mission-clients-profile.webp', 'Mission, vision and client portfolio company profile page', 'Mission & clients'],
-  ['/images/profile/company-cover-contact.webp', 'Pak Arab Manpower Supply LLC company profile cover and contact page', 'Company profile'],
+const workforceGroups = [
+  { id: 'mep', title: 'Onshore & offshore · MEP', image: '/images/generated/hero.webp', intro: 'Technical and non-technical specialists for oil, gas and industrial projects. Available for short- and long-term requirements.', roles: ['Site Manager', 'Mechanical Engineer', 'Project Engineer', 'Construction Engineer', 'Welding Engineer', 'Welding Supervisors', 'QA/QC Inspector', 'Safety Officer', 'Piping Foreman', 'Job Performer (ADNOC approved)', 'Performing Authority', 'Project Coordinator', 'Material Coordinator', 'Structural Supervisor', 'Structural Foreman', 'Rigging Supervisor', 'Rigging Foreman', 'Scaffolders', 'Multi Welder (GTAW/SMAW)', 'Welder (SMAW)', 'Piping & Structural Fabricator', 'Piping & Structural Fitter', 'Grinder Men', 'Iron Workers', 'Painters (Brush & Spray)', 'Erectors', 'Sand Blasters', 'Riggers', 'Mechanical Helper', 'Man-lift Operators', 'Industrial Electrician', 'Instrument Technician', 'Millwright Technician'] },
+  { id: 'civil', title: 'Onshore & offshore · Civil', image: '/images/generated/civil.webp', intro: 'Skilled trades, site operations and project support for construction and infrastructure across the UAE.', roles: ['Helpers (General Labourers)', 'Flagmen', 'Fire Watchers', 'Steel Fixers', 'Bar Benders', 'Shuttering Carpenters', 'Gypsum Carpenters', 'Finishing Carpenters', 'Block / Plaster Mason', 'Ceramic Masons', 'Interlock Masons', 'Pasco Masons', 'Concrete Masons', 'Painters (Brush)', 'Painters (Spray)', 'Scaffolders', 'Riggers & Jointers', 'Domestic Electricians', 'HVAC Technicians', 'Ductmen', 'Plumbers', 'Forklift Operators', 'Light Duty Drivers', 'Heavy Duty Drivers', 'Hoist Operators', 'Chargehands Civil', 'Foremen Civil', 'Supervisors Civil', 'Office Boys', 'Cleaners', 'Admin & Clerical Staff', 'Document Controller', 'HSE / Safety Officers', 'Project Coordinators', 'Gardeners', 'Landscape Workers'] },
 ];
 
-const workforceRoles = ['Site Managers', 'Engineers', 'QA/QC Inspectors', 'HSE Officers', 'Welders', 'Fabricators', 'Riggers', 'Scaffolders', 'Mechanical Technicians', 'Industrial Electricians', 'Instrument Technicians', 'Drivers & Operators'];
+function Workforce({ whatsapp }) {
+  const [active, setActive] = useState('mep');
+  const [query, setQuery] = useState('');
+  const group = workforceGroups.find(item => item.id === active);
+  const roles = group.roles.filter(role => role.toLowerCase().includes(query.toLowerCase().trim()));
+  return <section className="section workforce" id="profile"><div className="container">
+    <div className="section-head"><div><div className="eyebrow eyebrow--dark"><span /> Workforce directory</div><h2>The right expertise.<br /><em>For every stage.</em></h2></div><p>Explore the roles in our company profile, then tell us the skills, headcount and project duration you need.</p></div>
+    <div className="workforce__toolbar"><div className="workforce__tabs" role="tablist" aria-label="Workforce sector">{workforceGroups.map(item => <button key={item.id} type="button" role="tab" id={`tab-${item.id}`} aria-selected={active === item.id} aria-controls="workforce-panel" onClick={() => setActive(item.id)}>{item.id === 'mep' ? 'Industrial & MEP' : 'Civil & construction'}</button>)}</div><label className="role-search">Find a role<input type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder="Search engineers, welders…" /></label></div>
+    <div className="workforce__body" id="workforce-panel" role="tabpanel" aria-labelledby={`tab-${active}`}>
+      <aside className="workforce__visual"><img src={group.image} alt={active === 'mep' ? 'Illustrative industrial engineering team at a refinery' : 'Illustrative construction team reviewing site plans'} loading="lazy" /><div><span>PROJECT-ALIGNED PEOPLE</span><h3>{group.title}</h3><p>{group.intro}</p><a className="button button--red" href={whatsapp(`Hello Pak Arab, I would like to discuss ${group.title} workforce requirements.`)} target="_blank" rel="noreferrer">Request this workforce <ArrowRight /></a></div></aside>
+      <div className="workforce__directory"><p className="role-count" aria-live="polite">{roles.length} roles{query ? ' matching your search' : ' in this discipline'}</p><ul>{roles.map(role => <li key={role}><CircleCheck />{role}</li>)}</ul>{!roles.length && <p>No roles match “{query}”. Try another term or select the other sector.</p>}<p className="workforce__note">Role availability and project-specific approvals are confirmed during your enquiry.</p></div>
+    </div>
+  </div></section>;
+}
 
 const faqs = [
   ['What manpower services does Pak Arab Manpower Supply LLC provide?', 'We support requirement-led workforce sourcing and coordination across oil & gas, civil construction, mechanical and electrical fields.'],
@@ -131,36 +140,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const mobile = window.matchMedia('(max-width: 700px)').matches;
-    if (reduced || !mobile) return;
-    const cleanups = [...document.querySelectorAll('.mobile-auto-scroll')].map((track) => {
-      let index = 0;
-      let timer;
-      const start = () => {
-        clearInterval(timer);
-        timer = window.setInterval(() => {
-          const cards = [...track.children];
-          if (cards.length < 2) return;
-          index = (index + 1) % cards.length;
-          track.scrollTo({ left: cards[index].offsetLeft - track.offsetLeft, behavior: 'smooth' });
-        }, 3300);
-      };
-      const pause = () => clearInterval(timer);
-      const resume = () => window.setTimeout(start, 4200);
-      track.addEventListener('pointerdown', pause, { passive: true });
-      track.addEventListener('pointerup', resume, { passive: true });
-      start();
-      return () => {
-        clearInterval(timer);
-        track.removeEventListener('pointerdown', pause);
-        track.removeEventListener('pointerup', resume);
-      };
-    });
-    return () => cleanups.forEach((cleanup) => cleanup());
-  }, []);
-
-  useEffect(() => {
     let effect;
     let cancelled = false;
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -200,7 +179,7 @@ function App() {
       <div className="container nav">
         <Logo />
         <nav className={`nav__links ${menuOpen ? 'is-open' : ''}`} aria-label="Primary navigation">
-          {['About', 'Services', 'Sectors', 'Process', 'Profile', 'FAQ'].map((item) => <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenuOpen(false)}>{item}</a>)}
+          {['About', 'Services', 'Sectors', 'Profile', 'Clients', 'FAQ'].map((item) => <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenuOpen(false)}>{item === 'Profile' ? 'Workforce' : item}</a>)}
           <a className="button button--dark nav__cta" href="#contact" onClick={() => setMenuOpen(false)}>Talk to our team <ArrowUpRight /></a>
         </nav>
         <button className="nav__toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen}>{menuOpen ? <X /> : <Menu />}</button>
@@ -210,8 +189,8 @@ function App() {
     <main>
       <section className="hero" id="home">
         <picture className="hero__picture">
-          <source media="(max-width: 700px)" srcSet="/images/hero-workforce-mobile.webp" />
-          <img className="hero__image" src="/images/hero-workforce.webp" alt="Industrial workforce at a UAE energy facility" fetchPriority="high" />
+          <source media="(max-width: 700px)" srcSet="/images/generated/hero-mobile.webp" />
+          <img className="hero__image" src="/images/generated/hero.webp" alt="Industrial workforce at a UAE energy facility" fetchPriority="high" />
         </picture>
         <div className="hero__shade" />
         <div className="container hero__grid">
@@ -247,7 +226,7 @@ function App() {
       </div></section>
 
       <section className="section about" id="about"><div className="container about__grid">
-        <div className="about__media reveal"><img src="/images/workforce-planning.webp" alt="Workforce planning meeting in Abu Dhabi" loading="lazy" /><div className="about__stamp"><HardHat /><span>Built around<br /><b>your site.</b></span></div></div>
+        <div className="about__media reveal"><img src="/images/generated/planning.webp" alt="Workforce planning meeting in Abu Dhabi" loading="lazy" /><div className="about__stamp"><HardHat /><span>Built around<br /><b>your site.</b></span></div></div>
         <div className="about__copy reveal">
           <div className="eyebrow eyebrow--dark"><span /> Who we are</div>
           <h2>A workforce partner built around <em>quality, people and delivery.</em></h2>
@@ -261,13 +240,22 @@ function App() {
         </div>
       </div></section>
 
+      <section className="section purpose" id="purpose"><div className="container">
+        <div className="eyebrow eyebrow--dark"><span /> Our purpose</div>
+        <div className="purpose__heading"><h2>Connecting talent.<br /><em>Creating opportunity.</em></h2><p>Integrity, professionalism and excellence guide the way we work with our clients and our people.</p></div>
+        <div className="purpose__grid">
+          <article><span className="purpose__number">01 / OUR MISSION</span><UsersRound /><h3>People at the heart.<br />Performance in mind.</h3><p>To bridge the gap between talent and opportunity with reliable, skilled and dedicated manpower. We understand each client's needs and deliver workforce solutions that support their success, while fostering growth and development for our employees.</p><div className="purpose__tags"><span>Integrity</span><span>Professionalism</span><span>Excellence</span></div></article>
+          <article><span className="purpose__number">02 / OUR VISION</span><Building2 /><h3>Lasting relationships.<br />Shared progress.</h3><p>To become a leading manpower supply company recognized for exceptional service, innovative solutions and commitment to quality. By delivering value and empowering people and businesses, we aim to contribute to the development and prosperity of the regions we serve.</p><a className="text-link" href="#contact">Build with us <ArrowRight /></a></article>
+        </div>
+      </div></section>
+
       <section className="section services" id="services"><div className="container">
         <div className="section-head reveal"><div><div className="eyebrow eyebrow--dark"><span /> Capabilities</div><h2>Flexible manpower solutions for <em>demanding operations.</em></h2></div><p>Workforce solutions across core industrial fields, with a focus on flexible, reliable and skilled manpower services.</p></div>
         <div className="services__grid stagger-grid mobile-auto-scroll">{services.map(({ n, icon: Icon, title, text }) => <article className="service-card" key={title}><div className="service-card__top"><Icon /><span>{n}</span></div><h3>{title}</h3><p>{text}</p><ChevronRight className="service-card__arrow" /></article>)}</div>
       </div></section>
 
       <section className="capability-banner" id="sectors">
-        <img src="/images/industrial-team.webp" alt="Skilled industrial team working at an energy facility" loading="lazy" />
+        <img src="/images/generated/civil.webp" alt="Illustrative construction team reviewing project plans" loading="lazy" />
         <div className="capability-banner__shade" />
         <div className="container capability-banner__copy reveal"><div className="eyebrow"><span /> Fields of service</div><h2>People who keep<br /><em>operations moving.</em></h2><p>From site management to skilled trades, our service fields reflect the real-world requirements of industrial projects.</p></div>
       </section>
@@ -283,7 +271,7 @@ function App() {
 
       <section className="quality" ref={vantaEl}><div className="quality__overlay" /><div className="container quality__inner reveal">
         <div><div className="eyebrow"><span /> Quality management</div><h2>Quality is part of<br /><em>the delivery process.</em></h2></div>
-        <div className="quality__panel"><ShieldCheck /><p>Our company profile outlines a documented Quality Management System supported by quality-control and quality-assurance practices.</p><ul><li>Quality manual</li><li>Quality assurance procedure</li><li>Implementation & monitoring</li></ul></div>
+        <div className="quality__panel"><ShieldCheck /><p>Our documented Quality Management System is supported by an independent quality control and quality assurance department, with commitment from management and employees at every level.</p><ul><li>Quality manual</li><li>Quality assurance procedure</li><li>Implementation, monitoring & improvement</li><li>Site monitoring and implementation</li></ul></div>
       </div></section>
 
       <section className="section clients" id="clients"><div className="container">
@@ -292,21 +280,17 @@ function App() {
       </div></section>
 
       <section className="site-showcase" aria-label="Pak Arab operational values">
-        <img src="/images/industrial-team.webp" alt="Industrial energy facility representing site-ready workforce operations" loading="lazy" />
+        <img src="/images/generated/civil.webp" alt="Illustrative construction site representing workforce operations" loading="lazy" />
         <div className="site-showcase__shade" />
         <div className="container site-showcase__canvas reveal">
-          <div className="site-showcase__card site-showcase__card--hours"><strong>24/7</strong><span>Operational mindset</span></div>
+          <div className="site-showcase__card site-showcase__card--hours"><strong>People</strong><span>Our strongest foundation</span></div>
           <div className="site-showcase__card site-showcase__card--partner"><small>Partnership</small><Handshake /><p><i /> Long-term cooperation</p></div>
           <div className="site-showcase__card site-showcase__card--hse"><strong>HSE</strong><span>Safety-led culture</span></div>
           <div className="site-showcase__title"><span>Industrial workforce</span><h2>Built around <em>the site.</em></h2></div>
         </div>
       </section>
 
-      <section className="section profile" id="profile"><div className="container">
-        <div className="section-head reveal"><div><div className="eyebrow eyebrow--dark"><span /> Pak Arab Manpower Supply LLC</div><h2>Company profile, people and <em>workforce capability.</em></h2></div><p>Explore original company-profile pages and workforce photographs supplied by Pak Arab Manpower Supply LLC.</p></div>
-        <div className="profile__roles" aria-label="Available workforce roles">{workforceRoles.map((role) => <span key={role}><CircleCheck />{role}</span>)}</div>
-        <div className="profile__gallery mobile-auto-scroll stagger-grid">{profileGallery.map(([src, alt, caption], index) => <figure className={index < 2 ? 'profile__card profile__card--photo' : 'profile__card'} key={src}><a href={src} target="_blank" rel="noreferrer"><img src={src} alt={alt} loading="lazy" /><span><b>0{index + 1}</b>{caption}<ArrowUpRight /></span></a></figure>)}</div>
-      </div></section>
+      <Workforce whatsapp={whatsapp} />
 
       <section className="section faq" id="faq"><div className="container faq__grid">
         <div className="faq__intro reveal"><div className="eyebrow eyebrow--dark"><span /> Frequently asked questions</div><h2>Clear answers before <em>we get started.</em></h2><p className="section-lead">Quick information about our manpower fields, process and direct enquiry channels.</p><a className="text-link" href={whatsapp()} target="_blank" rel="noreferrer">Ask us on WhatsApp <ArrowRight /></a></div>
@@ -332,7 +316,7 @@ function App() {
       </div></section>
     </main>
 
-    <footer><div className="container footer__top"><Logo light /><p>Professional manpower supply and workforce coordination for demanding industrial environments across the UAE.<br />{ADDRESS}</p><a className="button button--outline" href="#home">Back to top <ArrowDownRight /></a></div><div className="container footer__bottom"><span>© {new Date().getFullYear()} Pak Arab Manpower Supply LLC</span><span>Abu Dhabi · Oil & Gas · Industrial Workforce</span></div></footer>
+    <footer><div className="container footer__top"><Logo light /><p>Professional manpower supply and workforce coordination for demanding industrial environments across the UAE.<br />{ADDRESS}</p><a className="button button--outline" href="#home">Back to top <ArrowDownRight /></a></div><div className="container footer__bottom"><span>© {new Date().getFullYear()} Pak Arab Manpower Supply LLC</span><span>Industrial imagery is AI-generated for illustration.</span></div></footer>
 
     <a className="whatsapp-float" href={whatsapp()} target="_blank" rel="noreferrer" aria-label="Chat with Pak Arab Manpower Supply LLC on WhatsApp">
       <WhatsAppIcon />
