@@ -207,7 +207,10 @@ function App() {
 
     <footer><div className="container footer__top"><Logo light /><p>Professional manpower supply and workforce coordination for demanding industrial environments across the UAE.</p><a className="button button--outline" href="#home">Back to top <ArrowDownRight /></a></div><div className="container footer__bottom"><span>© {new Date().getFullYear()} Pak Arab Manpower Supply LLC</span><span>Abu Dhabi · Oil & Gas · Industrial Workforce</span></div></footer>
 
-    <a className="whatsapp-float" href={whatsapp()} target="_blank" rel="noreferrer" aria-label="Chat with Pak Arab on WhatsApp"><span className="whatsapp-icon"><WhatsAppIcon /></span><b>WhatsApp us<small>Direct workforce enquiry</small></b></a>
+    <a className="whatsapp-float" href={whatsapp()} target="_blank" rel="noreferrer" aria-label="Chat with Pak Arab on WhatsApp">
+      <WhatsAppIcon />
+      <span className="whatsapp-status" aria-hidden="true" />
+    </a>
   </div>;
 }
 
