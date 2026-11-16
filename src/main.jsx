@@ -4,7 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
   ArrowDownRight, ArrowRight, BadgeCheck, Building2, ChevronRight,
-  CircleCheck, Construction, Factory, Gauge, HardHat, Headphones,
+  CircleCheck, Construction, Factory, Gauge, Handshake, HardHat, Headphones,
   Mail, MapPin, Menu, Phone, ShieldCheck, Sparkles, UsersRound, Wrench, X,
 } from 'lucide-react';
 import './styles.css';
@@ -259,6 +259,17 @@ function App() {
         <div className="section-head reveal"><div><div className="eyebrow eyebrow--dark"><span /> Trusted relationships</div><h2>Our <em>clients.</em></h2></div><p>Organizations presented in the Pak Arab Manpower Supply LLC company profile.</p></div>
         <div className="client-logos mobile-auto-scroll stagger-grid">{clients.map(([name, file], index) => <article className="client-logo" key={name}><span>{String(index + 1).padStart(2, '0')}</span><img src={`/images/clients/${file}`} alt={`${name} logo`} loading="lazy" /><small>{name}</small></article>)}</div>
       </div></section>
+
+      <section className="site-showcase" aria-label="Pak Arab operational values">
+        <img src="/images/industrial-team.webp" alt="Industrial energy facility representing site-ready workforce operations" loading="lazy" />
+        <div className="site-showcase__shade" />
+        <div className="container site-showcase__canvas reveal">
+          <div className="site-showcase__card site-showcase__card--hours"><strong>24/7</strong><span>Operational mindset</span></div>
+          <div className="site-showcase__card site-showcase__card--partner"><small>Partnership</small><Handshake /><p><i /> Long-term cooperation</p></div>
+          <div className="site-showcase__card site-showcase__card--hse"><strong>HSE</strong><span>Safety-led culture</span></div>
+          <div className="site-showcase__title"><span>Industrial workforce</span><h2>Built around <em>the site.</em></h2></div>
+        </div>
+      </section>
 
       <section className="section profile" id="profile"><div className="container">
         <div className="section-head reveal"><div><div className="eyebrow eyebrow--dark"><span /> Pak Arab Manpower Supply LLC</div><h2>Company profile, people and <em>workforce capability.</em></h2></div><p>Explore original company-profile pages and workforce photographs supplied by Pak Arab Manpower Supply LLC.</p></div>
