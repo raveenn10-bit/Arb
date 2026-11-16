@@ -207,10 +207,16 @@ function App() {
 
     <footer><div className="container footer__top"><Logo light /><p>Professional manpower supply and workforce coordination for demanding industrial environments across the UAE.</p><a className="button button--outline" href="#home">Back to top <ArrowDownRight /></a></div><div className="container footer__bottom"><span>© {new Date().getFullYear()} Pak Arab Manpower Supply LLC</span><span>Abu Dhabi · Oil & Gas · Industrial Workforce</span></div></footer>
 
-    <a className="whatsapp-float" href={whatsapp()} target="_blank" rel="noreferrer" aria-label="Chat with Pak Arab on WhatsApp"><span className="whatsapp-icon">WA</span><b>WhatsApp us<small>Direct workforce enquiry</small></b></a>
+    <a className="whatsapp-float" href={whatsapp()} target="_blank" rel="noreferrer" aria-label="Chat with Pak Arab on WhatsApp"><span className="whatsapp-icon"><WhatsAppIcon /></span><b>WhatsApp us<small>Direct workforce enquiry</small></b></a>
   </div>;
 }
 
 function ArrowUpRight(props) { return <ArrowRight {...props} className={`${props.className || ''} rotate-up`} />; }
+
+function WhatsAppIcon() {
+  return <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+    <path fill="currentColor" d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47a8.93 8.93 0 0 1-1.64-2.04c-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.91-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.21 3.08.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2-1.42.25-.7.25-1.3.18-1.42-.08-.13-.27-.2-.57-.35m-5.4 7.48h-.01a9.86 9.86 0 0 1-5.03-1.38l-.36-.22-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26A9.9 9.9 0 0 1 12.08 2a9.9 9.9 0 0 1 9.9 9.91 9.9 9.9 0 0 1-9.9 9.95m8.42-18.34A11.8 11.8 0 0 0 12.09 0C5.55 0 .23 5.32.23 11.86c0 2.09.55 4.13 1.6 5.92L.13 24l6.36-1.67a11.86 11.86 0 0 0 5.59 1.42h.01c6.54 0 11.86-5.32 11.86-11.86 0-3.17-1.23-6.15-3.47-8.39" />
+  </svg>;
+}
 
 createRoot(document.getElementById('root')).render(<React.StrictMode><App /></React.StrictMode>);
