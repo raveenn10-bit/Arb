@@ -179,7 +179,7 @@ function App() {
       <div className="container nav">
         <Logo />
         <nav className={`nav__links ${menuOpen ? 'is-open' : ''}`} aria-label="Primary navigation">
-          {['About', 'Services', 'Sectors', 'Profile', 'Clients', 'FAQ'].map((item) => <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenuOpen(false)}>{item === 'Profile' ? 'Workforce' : item}</a>)}
+          {['About', 'Purpose', 'Services', 'Profile', 'Clients', 'FAQ'].map((item) => <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenuOpen(false)}>{item === 'Profile' ? 'Workforce' : item === 'Purpose' ? 'Mission & Vision' : item}</a>)}
           <a className="button button--dark nav__cta" href="#contact" onClick={() => setMenuOpen(false)}>Talk to our team <ArrowUpRight /></a>
         </nav>
         <button className="nav__toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen}>{menuOpen ? <X /> : <Menu />}</button>
@@ -240,13 +240,25 @@ function App() {
         </div>
       </div></section>
 
-      <section className="section purpose" id="purpose"><div className="container">
-        <div className="eyebrow eyebrow--dark"><span /> Our purpose</div>
-        <div className="purpose__heading"><h2>Connecting talent.<br /><em>Creating opportunity.</em></h2><p>Integrity, professionalism and excellence guide the way we work with our clients and our people.</p></div>
+      <section className="section purpose" id="purpose" aria-labelledby="purpose-title"><div className="container">
+        <div className="purpose__intro"><div><div className="eyebrow eyebrow--dark"><span /> What drives Pak Arab</div><h2 id="purpose-title">Our purpose.<br /><em>People. Possibility.</em></h2></div><p>One shared ambition. Two guiding principles.<br />Connecting the right people to a better future.</p></div>
         <div className="purpose__grid">
-          <article><span className="purpose__number">01 / OUR MISSION</span><UsersRound /><h3>People at the heart.<br />Performance in mind.</h3><p>To bridge the gap between talent and opportunity with reliable, skilled and dedicated manpower. We understand each client's needs and deliver workforce solutions that support their success, while fostering growth and development for our employees.</p><div className="purpose__tags"><span>Integrity</span><span>Professionalism</span><span>Excellence</span></div></article>
-          <article><span className="purpose__number">02 / OUR VISION</span><Building2 /><h3>Lasting relationships.<br />Shared progress.</h3><p>To become a leading manpower supply company recognized for exceptional service, innovative solutions and commitment to quality. By delivering value and empowering people and businesses, we aim to contribute to the development and prosperity of the regions we serve.</p><a className="text-link" href="#contact">Build with us <ArrowRight /></a></article>
+          <article className="purpose-card purpose-card--mission" aria-labelledby="mission-title">
+            <div className="purpose-card__top"><span>01 / THE WORK WE DO</span><span className="purpose-card__symbol" aria-hidden="true"><UsersRound /></span></div>
+            <h3 id="mission-title">Our <strong>Mission.</strong></h3>
+            <p className="purpose-card__statement">Bridging talent.<br />Building opportunity.</p>
+            <img className="purpose-card__art" src="/images/generated/mission-brand.webp" alt="Illustration of an engineering team collaborating around a project drawing" width="1536" height="1024" loading="lazy" decoding="async" />
+            <div className="purpose-card__copy"><p>To bridge the gap between talent and opportunity with <b>reliable, skilled and dedicated manpower.</b> We understand each client's needs and deliver workforce solutions that support their success, while fostering growth and development for our employees.</p><div className="purpose-card__values"><span>Integrity</span><span>Professionalism</span><span>Excellence</span></div></div>
+          </article>
+          <article className="purpose-card purpose-card--vision" aria-labelledby="vision-title">
+            <div className="purpose-card__top"><span>02 / THE FUTURE WE SEE</span><span className="purpose-card__symbol" aria-hidden="true"><Building2 /></span></div>
+            <h3 id="vision-title">Our <strong>Vision.</strong></h3>
+            <p className="purpose-card__statement">Empowering people.<br />Shaping tomorrow.</p>
+            <img className="purpose-card__art" src="/images/generated/vision-brand.webp" alt="Illustration of engineers looking towards a growing city and future opportunities" width="1536" height="1024" loading="lazy" decoding="async" />
+            <div className="purpose-card__copy"><p>To become a leading manpower supply company recognized for <b>exceptional service, innovation and quality.</b> Through lasting relationships and consistent value, we empower people and businesses to contribute to the development and prosperity of the regions we serve.</p><div className="purpose-card__values"><span>Innovation</span><span>Partnership</span><span>Progress</span></div></div>
+          </article>
         </div>
+        <div className="purpose__closing"><span>Different skills. Shared ambition. <b>One trusted partner.</b></span><a className="text-link" href="#contact">Build your workforce with us <ArrowUpRight /></a></div>
       </div></section>
 
       <section className="section services" id="services"><div className="container">
