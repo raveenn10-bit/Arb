@@ -272,6 +272,10 @@ function App() {
           <button className="button button--red full" type="submit">Send via WhatsApp <ArrowRight /></button>
           <small className="full">This form opens WhatsApp so you can review the message before sending.</small>
         </form>
+      </div>
+      <div className="container contact__map reveal">
+        <div className="contact__map-head"><div><span>Our Abu Dhabi office</span><strong>Shabiya-12, Mussafah Commercial</strong></div><a className="button button--outline" href="https://www.google.com/maps/search/?api=1&query=Office+No.+01+M-Floor+Building+C-225+Shabiya-12+Mussafah+Commercial+Abu+Dhabi+UAE" target="_blank" rel="noreferrer">Open in Google Maps <ArrowUpRight /></a></div>
+        <iframe title="Pak Arab Manpower Supply LLC office location in Mussafah, Abu Dhabi" src="https://www.google.com/maps?q=Building+C-225,+Shabiya+12,+Mussafah+Commercial,+Abu+Dhabi,+UAE&output=embed" loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen />
       </div></section>
     </main>
 
