@@ -8,6 +8,7 @@ import {
   Mail, MapPin, Menu, Phone, ShieldCheck, Sparkles, UsersRound, Wrench, X,
 } from 'lucide-react';
 import './styles.css';
+import { buildEnquiryMessage, FIELD_LIMITS } from './enquiry.mjs';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -60,9 +61,9 @@ function Workforce({ whatsapp }) {
   const roles = group.roles.filter(role => role.toLowerCase().includes(query.toLowerCase().trim()));
   return <section className="section workforce" id="profile"><div className="container">
     <div className="section-head"><div><div className="eyebrow eyebrow--dark"><span /> Workforce directory</div><h2>The right expertise.<br /><em>For every stage.</em></h2></div><p>Explore the roles in our company profile, then tell us the skills, headcount and project duration you need.</p></div>
-    <div className="workforce__toolbar"><div className="workforce__tabs" role="tablist" aria-label="Workforce sector">{workforceGroups.map(item => <button key={item.id} type="button" role="tab" id={`tab-${item.id}`} aria-selected={active === item.id} aria-controls="workforce-panel" onClick={() => setActive(item.id)}>{item.id === 'mep' ? 'Industrial & MEP' : 'Civil & construction'}</button>)}</div><label className="role-search">Find a role<input type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder="Search engineers, welders…" /></label></div>
+    <div className="workforce__toolbar"><div className="workforce__tabs" role="tablist" aria-label="Workforce sector">{workforceGroups.map(item => <button key={item.id} type="button" role="tab" id={`tab-${item.id}`} aria-selected={active === item.id} aria-controls="workforce-panel" onClick={() => setActive(item.id)}>{item.id === 'mep' ? 'Industrial & MEP' : 'Civil & construction'}</button>)}</div><label className="role-search">Find a role<input type="search" maxLength={100} value={query} onChange={e => setQuery(e.target.value)} placeholder="Search engineers, welders…" /></label></div>
     <div className="workforce__body" id="workforce-panel" role="tabpanel" aria-labelledby={`tab-${active}`}>
-      <aside className="workforce__visual"><img src={group.image} alt={active === 'mep' ? 'Illustrative industrial engineering team at a refinery' : 'Illustrative construction team reviewing site plans'} loading="lazy" /><div><span>PROJECT-ALIGNED PEOPLE</span><h3>{group.title}</h3><p>{group.intro}</p><a className="button button--red" href={whatsapp(`Hello Pak Arab, I would like to discuss ${group.title} workforce requirements.`)} target="_blank" rel="noreferrer">Request this workforce <ArrowRight /></a></div></aside>
+      <aside className="workforce__visual"><img src={group.image} alt={active === 'mep' ? 'Illustrative industrial engineering team at a refinery' : 'Illustrative construction team reviewing site plans'} loading="lazy" /><div><span>PROJECT-ALIGNED PEOPLE</span><h3>{group.title}</h3><p>{group.intro}</p><a className="button button--red" href={whatsapp(`Hello Pak Arab, I would like to discuss ${group.title} workforce requirements.`)} target="_blank" rel="noopener noreferrer">Request this workforce <ArrowRight /></a></div></aside>
       <div className="workforce__directory"><p className="role-count" aria-live="polite">{roles.length} roles{query ? ' matching your search' : ' in this discipline'}</p><ul>{roles.map(role => <li key={role}><CircleCheck />{role}</li>)}</ul>{!roles.length && <p>No roles match “{query}”. Try another term or select the other sector.</p>}<p className="workforce__note">Role availability and project-specific approvals are confirmed during your enquiry.</p></div>
     </div>
   </div></section>;
@@ -199,7 +200,7 @@ function App() {
             <h1><span className="hero__line-wrap"><span className="hero__line">Industrial workforce.</span></span><span className="hero__line-wrap"><span className="hero__line"><em>Ready for the real world.</em></span></span></h1>
             <p className="hero__lead">Professional manpower sourcing and workforce coordination for oil & gas, energy, EPC and industrial operations across the UAE.</p>
             <div className="hero__actions">
-              <a className="button button--red" href={whatsapp()} target="_blank" rel="noreferrer">Discuss your requirement <ArrowRight /></a>
+              <a className="button button--red" href={whatsapp()} target="_blank" rel="noopener noreferrer">Discuss your requirement <ArrowRight /></a>
               <a className="button button--glass" href="#services">Explore capabilities <ArrowDownRight /></a>
             </div>
             <div className="hero__proof">
@@ -272,10 +273,10 @@ function App() {
         <div className="container capability-banner__copy reveal"><div className="eyebrow"><span /> Fields of service</div><h2>People who keep<br /><em>operations moving.</em></h2><p>From site management to skilled trades, our service fields reflect the real-world requirements of industrial projects.</p></div>
       </section>
 
-      <section className="section sector-list"><div className="container sector-list__grid stagger-grid mobile-auto-scroll">{sectors.map(({ icon: Icon, title, roles }, i) => <article key={title}><span>0{i + 1}</span><Icon /><h3>{title}</h3><p>{roles}</p><a href={whatsapp(`Hello Pak Arab Manpower Supply LLC, I need workforce support for ${title}.`)} target="_blank" rel="noreferrer">Discuss this field <ArrowRight /></a></article>)}</div></section>
+      <section className="section sector-list"><div className="container sector-list__grid stagger-grid mobile-auto-scroll">{sectors.map(({ icon: Icon, title, roles }, i) => <article key={title}><span>0{i + 1}</span><Icon /><h3>{title}</h3><p>{roles}</p><a href={whatsapp(`Hello Pak Arab Manpower Supply LLC, I need workforce support for ${title}.`)} target="_blank" rel="noopener noreferrer">Discuss this field <ArrowRight /></a></article>)}</div></section>
 
       <section className="section process" id="process"><div className="container process__grid">
-        <div className="process__intro reveal"><div className="eyebrow eyebrow--dark"><span /> Our process</div><h2>Clear steps.<br /><em>Better workforce fit.</em></h2><p className="section-lead">A practical path from your requirement to coordinated workforce support—with communication kept clear throughout.</p><a className="button button--dark" href={whatsapp()} target="_blank" rel="noreferrer">Start a conversation <ArrowRight /></a></div>
+        <div className="process__intro reveal"><div className="eyebrow eyebrow--dark"><span /> Our process</div><h2>Clear steps.<br /><em>Better workforce fit.</em></h2><p className="section-lead">A practical path from your requirement to coordinated workforce support—with communication kept clear throughout.</p><a className="button button--dark" href={whatsapp()} target="_blank" rel="noopener noreferrer">Start a conversation <ArrowRight /></a></div>
         <div className="process__steps stagger-grid">
           {[['01', 'Understand', 'We clarify roles, skills, project context and workforce priorities.'], ['02', 'Source', 'We identify candidates aligned to the stated technical and operational requirements.'], ['03', 'Evaluate', 'Candidate suitability, capability and readiness are reviewed for the requirement.'], ['04', 'Coordinate', 'We support clear communication and workforce coordination around deployment needs.']].map(([n, t, d]) => <div key={n}><b>{n}</b><span><strong>{t}</strong><small>{d}</small></span></div>)}
         </div>
@@ -305,32 +306,32 @@ function App() {
       <Workforce whatsapp={whatsapp} />
 
       <section className="section faq" id="faq"><div className="container faq__grid">
-        <div className="faq__intro reveal"><div className="eyebrow eyebrow--dark"><span /> Frequently asked questions</div><h2>Clear answers before <em>we get started.</em></h2><p className="section-lead">Quick information about our manpower fields, process and direct enquiry channels.</p><a className="text-link" href={whatsapp()} target="_blank" rel="noreferrer">Ask us on WhatsApp <ArrowRight /></a></div>
+        <div className="faq__intro reveal"><div className="eyebrow eyebrow--dark"><span /> Frequently asked questions</div><h2>Clear answers before <em>we get started.</em></h2><p className="section-lead">Quick information about our manpower fields, process and direct enquiry channels.</p><a className="text-link" href={whatsapp()} target="_blank" rel="noopener noreferrer">Ask us on WhatsApp <ArrowRight /></a></div>
         <div className="faq__list stagger-grid">{faqs.map(([question, answer], index) => <details key={question} open={index === 0}><summary><span>0{index + 1}</span><b>{question}</b><i aria-hidden="true" /></summary><p>{answer}</p></details>)}</div>
       </div></section>
 
       <section className="section contact" id="contact"><div className="container contact__shell reveal">
         <div className="contact__copy"><div className="eyebrow"><span /> Start a conversation</div><h2>Tell us what your operation <em>needs next.</em></h2><p>Share your required roles, project location and timeline. Our team will continue the conversation directly.</p><div className="contact__details"><a href={`tel:${PHONE_LINK}`}><Phone /><span><small>Office</small>{PHONE_DISPLAY}</span></a><a href="tel:+971553842555"><Phone /><span><small>Mobile</small>{MOBILE_ONE}</span></a><a href="tel:+971566995962"><Phone /><span><small>Mobile</small>{MOBILE_TWO}</span></a><a href={`mailto:${EMAIL}`}><Mail /><span><small>Email us</small>{EMAIL}</span></a><div className="contact__address"><MapPin /><span><small>Office address</small>{ADDRESS}</span></div></div></div>
-        <form className="contact__form" onSubmit={(e) => { e.preventDefault(); const fd = new FormData(e.currentTarget); window.open(whatsapp(`Hello Pak Arab Manpower Supply LLC,\n\nName: ${fd.get('name')}\nCompany: ${fd.get('company')}\nPhone / WhatsApp: ${fd.get('phone')}\nService: ${fd.get('service')}\nProject location: ${fd.get('location')}\nWorkforce requirement: ${fd.get('message')}`), '_blank', 'noopener,noreferrer'); }}>
-          <label>Full name<input name="name" placeholder="Your name" required /></label>
-          <label>Company<input name="company" placeholder="Company name" /></label>
-          <label>Phone / WhatsApp<input name="phone" type="tel" placeholder="+971..." required /></label>
+        <form className="contact__form" onSubmit={(e) => { e.preventDefault(); const fd = new FormData(e.currentTarget); window.open(whatsapp(buildEnquiryMessage(fd)), '_blank', 'noopener,noreferrer'); }}>
+          <label>Full name<input name="name" maxLength={FIELD_LIMITS.name} autoComplete="name" placeholder="Your name" required /></label>
+          <label>Company<input name="company" maxLength={FIELD_LIMITS.company} placeholder="Company name" /></label>
+          <label>Phone / WhatsApp<input name="phone" maxLength={FIELD_LIMITS.phone} autoComplete="tel" type="tel" placeholder="+971..." required /></label>
           <label>Service<select name="service" defaultValue=""><option value="" disabled>Select a service</option><option>Oil & Gas</option><option>Civil & Construction</option><option>Mechanical</option><option>Electrical & Instrumentation</option><option>General Manpower</option></select></label>
-          <label className="full">Project location<input name="location" placeholder="City / project site" /></label>
-          <label className="full">Workforce requirement<textarea name="message" placeholder="Roles, project location, timeline..." required /></label>
+          <label className="full">Project location<input name="location" maxLength={FIELD_LIMITS.location} placeholder="City / project site" /></label>
+          <label className="full">Workforce requirement<textarea name="message" maxLength={FIELD_LIMITS.message} placeholder="Roles, project location, timeline..." required /></label>
           <button className="button button--whatsapp full" type="submit"><WhatsAppIcon /> Send via WhatsApp <ArrowRight /></button>
           <small className="full">This form opens WhatsApp so you can review the message before sending.</small>
         </form>
       </div>
       <div className="container contact__map reveal">
-        <div className="contact__map-head"><div><span>Our Abu Dhabi office</span><strong>Shabiya-12, Mussafah Commercial</strong></div><a className="button button--outline" href="https://www.google.com/maps/search/?api=1&query=Office+No.+01+M-Floor+Building+C-225+Shabiya-12+Mussafah+Commercial+Abu+Dhabi+UAE" target="_blank" rel="noreferrer">Open in Google Maps <ArrowUpRight /></a></div>
-        <iframe title="Pak Arab Manpower Supply LLC office location in Mussafah, Abu Dhabi" src="https://www.google.com/maps?q=Building+C-225,+Shabiya+12,+Mussafah+Commercial,+Abu+Dhabi,+UAE&output=embed" loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen />
+        <div className="contact__map-head"><div><span>Our Abu Dhabi office</span><strong>Shabiya-12, Mussafah Commercial</strong></div><a className="button button--outline" href="https://www.google.com/maps/search/?api=1&query=Office+No.+01+M-Floor+Building+C-225+Shabiya-12+Mussafah+Commercial+Abu+Dhabi+UAE" target="_blank" rel="noopener noreferrer">Open in Google Maps <ArrowUpRight /></a></div>
+        <iframe title="Pak Arab Manpower Supply LLC office location in Mussafah, Abu Dhabi" src="https://www.google.com/maps?q=Building+C-225,+Shabiya+12,+Mussafah+Commercial,+Abu+Dhabi,+UAE&output=embed" loading="lazy" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
       </div></section>
     </main>
 
     <footer><div className="container footer__top"><Logo light /><p>Professional manpower supply and workforce coordination for demanding industrial environments across the UAE.<br />{ADDRESS}</p><a className="button button--outline" href="#home">Back to top <ArrowDownRight /></a></div><div className="container footer__bottom"><span>© {new Date().getFullYear()} Pak Arab Manpower Supply LLC</span><span>Industrial imagery is AI-generated for illustration.</span></div></footer>
 
-    <a className="whatsapp-float" href={whatsapp()} target="_blank" rel="noreferrer" aria-label="Chat with Pak Arab Manpower Supply LLC on WhatsApp">
+    <a className="whatsapp-float" href={whatsapp()} target="_blank" rel="noopener noreferrer" aria-label="Chat with Pak Arab Manpower Supply LLC on WhatsApp">
       <WhatsAppIcon />
       <span className="whatsapp-status" aria-hidden="true" />
     </a>
