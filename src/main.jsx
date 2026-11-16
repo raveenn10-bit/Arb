@@ -291,7 +291,7 @@ function App() {
           <label>Service<select name="service" defaultValue=""><option value="" disabled>Select a service</option><option>Oil & Gas</option><option>Civil & Construction</option><option>Mechanical</option><option>Electrical & Instrumentation</option><option>General Manpower</option></select></label>
           <label className="full">Project location<input name="location" placeholder="City / project site" /></label>
           <label className="full">Workforce requirement<textarea name="message" placeholder="Roles, project location, timeline..." required /></label>
-          <button className="button button--red full" type="submit">Send via WhatsApp <ArrowRight /></button>
+          <button className="button button--whatsapp full" type="submit"><WhatsAppIcon /> Send via WhatsApp <ArrowRight /></button>
           <small className="full">This form opens WhatsApp so you can review the message before sending.</small>
         </form>
       </div>
