@@ -84,9 +84,11 @@ function App() {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduced) return;
     const ctx = gsap.context(() => {
-      gsap.from('.hero__eyebrow, .hero h1, .hero__lead, .hero__actions, .hero__proof', {
+      const desktop = window.matchMedia('(min-width: 701px)').matches;
+      gsap.from('.hero__eyebrow, .hero__lead, .hero__actions, .hero__proof', {
         y: 34, opacity: 0, duration: .85, stagger: .11, ease: 'power3.out', delay: .15,
       });
+      gsap.from('.hero__line', { yPercent: 115, rotate: 2, duration: 1.05, stagger: .12, ease: 'power4.out', delay: .12 });
       gsap.from('.hero__visual-card', { x: 55, opacity: 0, duration: 1.1, ease: 'power3.out', delay: .35 });
       gsap.utils.toArray('.reveal').forEach((el) => {
         gsap.from(el, { y: 42, opacity: 0, duration: .8, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 86%', once: true } });
@@ -94,7 +96,21 @@ function App() {
       gsap.utils.toArray('.stagger-grid').forEach((grid) => {
         gsap.from(grid.children, { y: 34, opacity: 0, duration: .65, stagger: .09, ease: 'power3.out', scrollTrigger: { trigger: grid, start: 'top 83%', once: true } });
       });
-      gsap.to('.hero__image', { yPercent: 8, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+      gsap.utils.toArray('.section h2, .capability-banner h2, .quality h2, .contact h2, .site-showcase__title h2').forEach((title) => {
+        gsap.from(title, { y: 48, opacity: 0, filter: 'blur(8px)', clipPath: 'inset(0 0 100% 0)', duration: .95, ease: 'power4.out', scrollTrigger: { trigger: title, start: 'top 88%', once: true } });
+      });
+      gsap.utils.toArray('.eyebrow > span').forEach((line) => {
+        gsap.from(line, { scaleX: 0, transformOrigin: 'left center', duration: .75, ease: 'power3.out', scrollTrigger: { trigger: line, start: 'top 92%', once: true } });
+      });
+      gsap.utils.toArray('.service-card__top svg, .sector-list article > svg, .trust-strip svg, .about__stamp svg').forEach((icon) => {
+        gsap.from(icon, { scale: .25, rotate: -28, opacity: 0, duration: .65, ease: 'back.out(1.8)', scrollTrigger: { trigger: icon, start: 'top 92%', once: true } });
+      });
+      gsap.from('.site-showcase__card', { scale: .88, y: 35, opacity: 0, duration: .8, stagger: .14, ease: 'back.out(1.35)', scrollTrigger: { trigger: '.site-showcase', start: 'top 72%', once: true } });
+      if (desktop) {
+        gsap.to('.hero__image', { yPercent: 8, scale: 1.04, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+        gsap.to('.capability-banner > img', { scale: 1.09, yPercent: 5, ease: 'none', scrollTrigger: { trigger: '.capability-banner', start: 'top bottom', end: 'bottom top', scrub: 1 } });
+        gsap.to('.site-showcase > img', { scale: 1.08, yPercent: 6, ease: 'none', scrollTrigger: { trigger: '.site-showcase', start: 'top bottom', end: 'bottom top', scrub: 1 } });
+      }
     }, root);
     return () => ctx.revert();
   }, []);
@@ -186,7 +202,7 @@ function App() {
         <div className="container hero__grid">
           <div className="hero__copy">
             <div className="eyebrow hero__eyebrow"><span /> UAE Industrial Workforce Partner</div>
-            <h1>Industrial workforce.<br /><em>Ready for the real world.</em></h1>
+            <h1><span className="hero__line-wrap"><span className="hero__line">Industrial workforce.</span></span><span className="hero__line-wrap"><span className="hero__line"><em>Ready for the real world.</em></span></span></h1>
             <p className="hero__lead">Professional manpower sourcing and workforce coordination for oil & gas, energy, EPC and industrial operations across the UAE.</p>
             <div className="hero__actions">
               <a className="button button--red" href={whatsapp()} target="_blank" rel="noreferrer">Discuss your requirement <ArrowRight /></a>
