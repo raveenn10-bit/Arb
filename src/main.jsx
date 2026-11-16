@@ -11,10 +11,13 @@ import './styles.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const PHONE_DISPLAY = '02 551 1925';
-const PHONE_LINK = '+97125511925';
+const PHONE_DISPLAY = '+971 2 679 2576';
+const PHONE_LINK = '+97126792576';
+const MOBILE_ONE = '+971 55 384 2555';
+const MOBILE_TWO = '+971 56 699 5962';
 const WHATSAPP = '97125511925';
 const EMAIL = 'info@pakarabmps.com';
+const ADDRESS = 'Office No. 01, M-Floor, Building C-225, Shabiya-12, Mussafah Commercial, P.O. Box 133046, Abu Dhabi, UAE';
 
 const services = [
   { n: '01', icon: UsersRound, title: 'Manpower services', text: 'Workforce sourcing and supply aligned with client requirements, skills and operational needs.' },
@@ -34,8 +37,28 @@ const sectors = [
 
 const clients = ['ADNOC', 'ALTRAD', 'Etisalat', 'ASGC', 'Al Jaber Group', 'GASCO', 'NPCC', 'GISCO', 'LAMPRELL', 'DESCON', 'ARCHIRODON', 'China State Construction'];
 
+const profileGallery = [
+  ['/images/profile/workforce-team-1.webp', 'Pak Arab Manpower Supply LLC workforce at an industrial facility', 'Industrial workforce'],
+  ['/images/profile/workforce-team-2.webp', 'Pak Arab Manpower Supply LLC technical team at an oil and gas facility', 'Technical team'],
+  ['/images/profile/quality-services-profile.webp', 'Quality management and services company profile page', 'Quality & services'],
+  ['/images/profile/workforce-categories-profile.webp', 'Onshore and offshore workforce categories company profile page', 'Available workforce'],
+  ['/images/profile/mission-clients-profile.webp', 'Mission, vision and client portfolio company profile page', 'Mission & clients'],
+  ['/images/profile/company-cover-contact.webp', 'Pak Arab Manpower Supply LLC company profile cover and contact page', 'Company profile'],
+];
+
+const workforceRoles = ['Site Managers', 'Engineers', 'QA/QC Inspectors', 'HSE Officers', 'Welders', 'Fabricators', 'Riggers', 'Scaffolders', 'Mechanical Technicians', 'Industrial Electricians', 'Instrument Technicians', 'Drivers & Operators'];
+
+const faqs = [
+  ['What manpower services does Pak Arab Manpower Supply LLC provide?', 'We support requirement-led workforce sourcing and coordination across oil & gas, civil construction, mechanical and electrical fields.'],
+  ['Which workforce roles can you support?', 'The company profile covers site managers, engineers, QA/QC and HSE personnel, riggers, scaffolders, welders, fabricators, technicians, electricians, operators and other skilled project roles.'],
+  ['How do we start a manpower request?', 'Send the required roles, project location and expected timeline through WhatsApp, email or the enquiry form. Our team can then continue the requirement discussion directly.'],
+  ['Where is Pak Arab Manpower Supply located?', 'Pak Arab Manpower Supply LLC is based in Abu Dhabi, United Arab Emirates.'],
+  ['How does your workforce process work?', 'We begin by understanding the requirement, then move through sourcing, candidate evaluation and workforce coordination around the stated deployment needs.'],
+  ['Can we discuss an urgent project requirement?', `Yes. Use the floating WhatsApp button or call ${PHONE_DISPLAY} to begin a direct conversation with the team.`],
+];
+
 function Logo({ light = false }) {
-  return <a className={`brand ${light ? 'brand--light' : ''}`} href="#home" aria-label="Pak Arab Manpower home">
+  return <a className={`brand ${light ? 'brand--light' : ''}`} href="#home" aria-label="Pak Arab Manpower Supply LLC home">
     <img src="/images/pak-arab-logo.png" alt="Pak Arab Manpower Supply LLC" />
     <span><b>PAK ARAB</b><small>MANPOWER SUPPLY LLC</small></span>
   </a>;
@@ -66,6 +89,36 @@ function App() {
   }, []);
 
   useEffect(() => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const mobile = window.matchMedia('(max-width: 700px)').matches;
+    if (reduced || !mobile) return;
+    const cleanups = [...document.querySelectorAll('.mobile-auto-scroll')].map((track) => {
+      let index = 0;
+      let timer;
+      const start = () => {
+        clearInterval(timer);
+        timer = window.setInterval(() => {
+          const cards = [...track.children];
+          if (cards.length < 2) return;
+          index = (index + 1) % cards.length;
+          track.scrollTo({ left: cards[index].offsetLeft - track.offsetLeft, behavior: 'smooth' });
+        }, 3300);
+      };
+      const pause = () => clearInterval(timer);
+      const resume = () => window.setTimeout(start, 4200);
+      track.addEventListener('pointerdown', pause, { passive: true });
+      track.addEventListener('pointerup', resume, { passive: true });
+      start();
+      return () => {
+        clearInterval(timer);
+        track.removeEventListener('pointerdown', pause);
+        track.removeEventListener('pointerup', resume);
+      };
+    });
+    return () => cleanups.forEach((cleanup) => cleanup());
+  }, []);
+
+  useEffect(() => {
     let effect;
     let cancelled = false;
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -92,7 +145,7 @@ function App() {
     return () => { cancelled = true; effect?.destroy(); };
   }, []);
 
-  const whatsapp = (message = 'Hello PAK ARAB MANPOWER SUPPLY, I would like to discuss manpower requirements.') =>
+  const whatsapp = (message = 'Hello Pak Arab Manpower Supply LLC, I would like to discuss manpower requirements.') =>
     `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(message)}`;
 
   return <div ref={root}>
@@ -105,7 +158,7 @@ function App() {
       <div className="container nav">
         <Logo />
         <nav className={`nav__links ${menuOpen ? 'is-open' : ''}`} aria-label="Primary navigation">
-          {['About', 'Services', 'Sectors', 'Process', 'Clients'].map((item) => <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenuOpen(false)}>{item}</a>)}
+          {['About', 'Services', 'Sectors', 'Process', 'Profile', 'FAQ'].map((item) => <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenuOpen(false)}>{item}</a>)}
           <a className="button button--dark nav__cta" href="#contact" onClick={() => setMenuOpen(false)}>Talk to our team <ArrowUpRight /></a>
         </nav>
         <button className="nav__toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen}>{menuOpen ? <X /> : <Menu />}</button>
@@ -114,7 +167,10 @@ function App() {
 
     <main>
       <section className="hero" id="home">
-        <img className="hero__image" src="/images/hero-workforce.webp" alt="Industrial workforce at a UAE energy facility" fetchPriority="high" />
+        <picture className="hero__picture">
+          <source media="(max-width: 700px)" srcSet="/images/hero-workforce-mobile.webp" />
+          <img className="hero__image" src="/images/hero-workforce.webp" alt="Industrial workforce at a UAE energy facility" fetchPriority="high" />
+        </picture>
         <div className="hero__shade" />
         <div className="container hero__grid">
           <div className="hero__copy">
@@ -165,7 +221,7 @@ function App() {
 
       <section className="section services" id="services"><div className="container">
         <div className="section-head reveal"><div><div className="eyebrow eyebrow--dark"><span /> Capabilities</div><h2>Flexible manpower solutions for <em>demanding operations.</em></h2></div><p>Workforce solutions across core industrial fields, with a focus on flexible, reliable and skilled manpower services.</p></div>
-        <div className="services__grid stagger-grid">{services.map(({ n, icon: Icon, title, text }) => <article className="service-card" key={title}><div className="service-card__top"><Icon /><span>{n}</span></div><h3>{title}</h3><p>{text}</p><ChevronRight className="service-card__arrow" /></article>)}</div>
+        <div className="services__grid stagger-grid mobile-auto-scroll">{services.map(({ n, icon: Icon, title, text }) => <article className="service-card" key={title}><div className="service-card__top"><Icon /><span>{n}</span></div><h3>{title}</h3><p>{text}</p><ChevronRight className="service-card__arrow" /></article>)}</div>
       </div></section>
 
       <section className="capability-banner" id="sectors">
@@ -174,7 +230,7 @@ function App() {
         <div className="container capability-banner__copy reveal"><div className="eyebrow"><span /> Fields of service</div><h2>People who keep<br /><em>operations moving.</em></h2><p>From site management to skilled trades, our service fields reflect the real-world requirements of industrial projects.</p></div>
       </section>
 
-      <section className="section sector-list"><div className="container sector-list__grid stagger-grid">{sectors.map(({ icon: Icon, title, roles }, i) => <article key={title}><span>0{i + 1}</span><Icon /><h3>{title}</h3><p>{roles}</p><a href={whatsapp(`Hello PAK ARAB MANPOWER SUPPLY, I need workforce support for ${title}.`)} target="_blank" rel="noreferrer">Discuss this field <ArrowRight /></a></article>)}</div></section>
+      <section className="section sector-list"><div className="container sector-list__grid stagger-grid mobile-auto-scroll">{sectors.map(({ icon: Icon, title, roles }, i) => <article key={title}><span>0{i + 1}</span><Icon /><h3>{title}</h3><p>{roles}</p><a href={whatsapp(`Hello Pak Arab Manpower Supply LLC, I need workforce support for ${title}.`)} target="_blank" rel="noreferrer">Discuss this field <ArrowRight /></a></article>)}</div></section>
 
       <section className="section process" id="process"><div className="container process__grid">
         <div className="process__intro reveal"><div className="eyebrow eyebrow--dark"><span /> Our process</div><h2>Clear steps.<br /><em>Better workforce fit.</em></h2><p className="section-lead">A practical path from your requirement to coordinated workforce support—with communication kept clear throughout.</p><a className="button button--dark" href={whatsapp()} target="_blank" rel="noreferrer">Start a conversation <ArrowRight /></a></div>
@@ -189,15 +245,29 @@ function App() {
       </div></section>
 
       <section className="section clients" id="clients"><div className="container">
-        <div className="section-head reveal"><div><div className="eyebrow eyebrow--dark"><span /> Company profile</div><h2>Organizations featured in our <em>client portfolio.</em></h2></div><p>Selected names presented in the Pak Arab company profile.</p></div>
+        <div className="section-head reveal"><div><div className="eyebrow eyebrow--dark"><span /> Company profile</div><h2>Organizations featured in our <em>client portfolio.</em></h2></div><p>Selected names presented in the Pak Arab Manpower Supply LLC company profile.</p></div>
         <div className="clients__marquee"><div>{[...clients, ...clients].map((c, i) => <span key={`${c}-${i}`}>{c}</span>)}</div></div>
       </div></section>
 
+      <section className="section profile" id="profile"><div className="container">
+        <div className="section-head reveal"><div><div className="eyebrow eyebrow--dark"><span /> Pak Arab Manpower Supply LLC</div><h2>Company profile, people and <em>workforce capability.</em></h2></div><p>Explore original company-profile pages and workforce photographs supplied by Pak Arab Manpower Supply LLC.</p></div>
+        <div className="profile__roles" aria-label="Available workforce roles">{workforceRoles.map((role) => <span key={role}><CircleCheck />{role}</span>)}</div>
+        <div className="profile__gallery mobile-auto-scroll stagger-grid">{profileGallery.map(([src, alt, caption], index) => <figure className={index < 2 ? 'profile__card profile__card--photo' : 'profile__card'} key={src}><a href={src} target="_blank" rel="noreferrer"><img src={src} alt={alt} loading="lazy" /><span><b>0{index + 1}</b>{caption}<ArrowUpRight /></span></a></figure>)}</div>
+      </div></section>
+
+      <section className="section faq" id="faq"><div className="container faq__grid">
+        <div className="faq__intro reveal"><div className="eyebrow eyebrow--dark"><span /> Frequently asked questions</div><h2>Clear answers before <em>we get started.</em></h2><p className="section-lead">Quick information about our manpower fields, process and direct enquiry channels.</p><a className="text-link" href={whatsapp()} target="_blank" rel="noreferrer">Ask us on WhatsApp <ArrowRight /></a></div>
+        <div className="faq__list stagger-grid">{faqs.map(([question, answer], index) => <details key={question} open={index === 0}><summary><span>0{index + 1}</span><b>{question}</b><i aria-hidden="true" /></summary><p>{answer}</p></details>)}</div>
+      </div></section>
+
       <section className="section contact" id="contact"><div className="container contact__shell reveal">
-        <div className="contact__copy"><div className="eyebrow"><span /> Start a conversation</div><h2>Tell us what your operation <em>needs next.</em></h2><p>Share your required roles, project location and timeline. Our team will continue the conversation directly.</p><div className="contact__details"><a href={`tel:${PHONE_LINK}`}><Phone /><span><small>Call us</small>{PHONE_DISPLAY}</span></a><a href={`mailto:${EMAIL}`}><Mail /><span><small>Email us</small>{EMAIL}</span></a><div><MapPin /><span><small>Location</small>Abu Dhabi, UAE</span></div></div></div>
-        <form className="contact__form" onSubmit={(e) => { e.preventDefault(); const fd = new FormData(e.currentTarget); window.open(whatsapp(`Hello PAK ARAB MANPOWER SUPPLY,\nName: ${fd.get('name')}\nCompany: ${fd.get('company')}\nRequirement: ${fd.get('message')}`), '_blank', 'noopener,noreferrer'); }}>
+        <div className="contact__copy"><div className="eyebrow"><span /> Start a conversation</div><h2>Tell us what your operation <em>needs next.</em></h2><p>Share your required roles, project location and timeline. Our team will continue the conversation directly.</p><div className="contact__details"><a href={`tel:${PHONE_LINK}`}><Phone /><span><small>Office</small>{PHONE_DISPLAY}</span></a><a href="tel:+971553842555"><Phone /><span><small>Mobile</small>{MOBILE_ONE}</span></a><a href="tel:+971566995962"><Phone /><span><small>Mobile</small>{MOBILE_TWO}</span></a><a href={`mailto:${EMAIL}`}><Mail /><span><small>Email us</small>{EMAIL}</span></a><div className="contact__address"><MapPin /><span><small>Office address</small>{ADDRESS}</span></div></div></div>
+        <form className="contact__form" onSubmit={(e) => { e.preventDefault(); const fd = new FormData(e.currentTarget); window.open(whatsapp(`Hello Pak Arab Manpower Supply LLC,\n\nName: ${fd.get('name')}\nCompany: ${fd.get('company')}\nPhone / WhatsApp: ${fd.get('phone')}\nService: ${fd.get('service')}\nProject location: ${fd.get('location')}\nWorkforce requirement: ${fd.get('message')}`), '_blank', 'noopener,noreferrer'); }}>
           <label>Full name<input name="name" placeholder="Your name" required /></label>
           <label>Company<input name="company" placeholder="Company name" /></label>
+          <label>Phone / WhatsApp<input name="phone" type="tel" placeholder="+971..." required /></label>
+          <label>Service<select name="service" defaultValue=""><option value="" disabled>Select a service</option><option>Oil & Gas</option><option>Civil & Construction</option><option>Mechanical</option><option>Electrical & Instrumentation</option><option>General Manpower</option></select></label>
+          <label className="full">Project location<input name="location" placeholder="City / project site" /></label>
           <label className="full">Workforce requirement<textarea name="message" placeholder="Roles, project location, timeline..." required /></label>
           <button className="button button--red full" type="submit">Send via WhatsApp <ArrowRight /></button>
           <small className="full">This form opens WhatsApp so you can review the message before sending.</small>
@@ -205,9 +275,9 @@ function App() {
       </div></section>
     </main>
 
-    <footer><div className="container footer__top"><Logo light /><p>Professional manpower supply and workforce coordination for demanding industrial environments across the UAE.</p><a className="button button--outline" href="#home">Back to top <ArrowDownRight /></a></div><div className="container footer__bottom"><span>© {new Date().getFullYear()} Pak Arab Manpower Supply LLC</span><span>Abu Dhabi · Oil & Gas · Industrial Workforce</span></div></footer>
+    <footer><div className="container footer__top"><Logo light /><p>Professional manpower supply and workforce coordination for demanding industrial environments across the UAE.<br />{ADDRESS}</p><a className="button button--outline" href="#home">Back to top <ArrowDownRight /></a></div><div className="container footer__bottom"><span>© {new Date().getFullYear()} Pak Arab Manpower Supply LLC</span><span>Abu Dhabi · Oil & Gas · Industrial Workforce</span></div></footer>
 
-    <a className="whatsapp-float" href={whatsapp()} target="_blank" rel="noreferrer" aria-label="Chat with Pak Arab on WhatsApp">
+    <a className="whatsapp-float" href={whatsapp()} target="_blank" rel="noreferrer" aria-label="Chat with Pak Arab Manpower Supply LLC on WhatsApp">
       <WhatsAppIcon />
       <span className="whatsapp-status" aria-hidden="true" />
     </a>
