@@ -35,7 +35,18 @@ const sectors = [
   { icon: Sparkles, title: 'Electrical', roles: 'Electrical and instrumentation technicians, electricians and related industrial support roles.' },
 ];
 
-const clients = ['ADNOC', 'ALTRAD', 'Etisalat', 'ASGC', 'Al Jaber Group', 'GASCO', 'NPCC', 'GISCO', 'LAMPRELL', 'DESCON', 'ARCHIRODON', 'China State Construction'];
+const clients = [
+  ['ADNOC', '01-adnoc.webp'], ['ALTRAD', '02-altrad.webp'], ['Etisalat by e&', '03-etisalat-by-e-and.webp'],
+  ['Ali & Sons', '04-ali-and-sons.webp'], ['ASGC', '05-asgc.webp'], ['Al Jaber Group', '06-al-jaber-group.webp'],
+  ['Probus Engineering & Construction', '07-probus-engineering-and-construction.webp'], ['GASCO', '08-gasco.webp'],
+  ['China Comservice', '09-china-comservice.webp'], ['EPPI', '10-eppi.webp'], ['Emirates Steel', '11-emirates-steel.webp'],
+  ['MICODA', '12-micoda.webp'], ['ROBT Stone', '13-robt-stone.webp'], ['Denholm Yam', '14-denholm-yam.webp'],
+  ['Lamprell', '15-lamprell.webp'], ['Descon Engineering', '16-descon-engineering.webp'], ['NPCC', '17-npcc.webp'],
+  ['GISCO', '18-gisco.webp'], ['Al Shoumoukh General Trading', '19-al-shoumoukh-general-trading.webp'], ['NSH', '20-nsh.webp'],
+  ['Tekzone Industrial Construction', '21-tekzone-industrial-construction.webp'], ['ARCHIRODON', '22-archirodon.webp'],
+  ['Tecnicas Reunidas', '23-tecnicas-reunidas.webp'], ['ALNASR', '24-alnasr.webp'], ['Galva Coat Industries', '25-galva-coat-industries.webp'],
+  ['CPP China Petroleum Pipeline Engineering', '26-cpp-china-petroleum-pipeline-engineering.webp'],
+];
 
 const profileGallery = [
   ['/images/profile/workforce-team-1.webp', 'Pak Arab Manpower Supply LLC workforce at an industrial facility', 'Industrial workforce'],
@@ -245,8 +256,8 @@ function App() {
       </div></section>
 
       <section className="section clients" id="clients"><div className="container">
-        <div className="section-head reveal"><div><div className="eyebrow eyebrow--dark"><span /> Company profile</div><h2>Organizations featured in our <em>client portfolio.</em></h2></div><p>Selected names presented in the Pak Arab Manpower Supply LLC company profile.</p></div>
-        <div className="clients__marquee"><div>{[...clients, ...clients].map((c, i) => <span key={`${c}-${i}`}>{c}</span>)}</div></div>
+        <div className="section-head reveal"><div><div className="eyebrow eyebrow--dark"><span /> Trusted relationships</div><h2>Our <em>clients.</em></h2></div><p>Organizations presented in the Pak Arab Manpower Supply LLC company profile.</p></div>
+        <div className="client-logos mobile-auto-scroll stagger-grid">{clients.map(([name, file], index) => <article className="client-logo" key={name}><span>{String(index + 1).padStart(2, '0')}</span><img src={`/images/clients/${file}`} alt={`${name} logo`} loading="lazy" /><small>{name}</small></article>)}</div>
       </div></section>
 
       <section className="section profile" id="profile"><div className="container">
