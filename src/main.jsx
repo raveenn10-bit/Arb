@@ -4,7 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
   ArrowDownRight, ArrowRight, BadgeCheck, Building2, ChevronRight,
-  CircleCheck, Construction, Factory, Gauge, Handshake, HardHat, Headphones,
+  CircleCheck, Construction, Cookie, Factory, Gauge, Handshake, HardHat, Headphones,
   Mail, MapPin, Menu, Phone, ShieldCheck, Sparkles, UsersRound, Wrench, X,
 } from 'lucide-react';
 import './styles.css';
@@ -83,6 +83,52 @@ function Logo({ light = false }) {
     <img src="/images/pak-arab-logo.png" alt="Pak Arab Manpower Supply LLC" />
     <span><b>PAK ARAB</b><small>MANPOWER SUPPLY LLC</small></span>
   </a>;
+}
+
+const CONSENT_KEY = 'pak-arab-cookie-consent-v1';
+
+function CookieConsent() {
+  const [open, setOpen] = useState(false);
+  const [managing, setManaging] = useState(false);
+
+  useEffect(() => {
+    try { setOpen(!window.localStorage.getItem(CONSENT_KEY)); } catch { setOpen(true); }
+    const reopen = () => { setManaging(true); setOpen(true); };
+    window.addEventListener('open-cookie-preferences', reopen);
+    return () => window.removeEventListener('open-cookie-preferences', reopen);
+  }, []);
+
+  useEffect(() => {
+    document.body.classList.toggle('consent-open', open);
+    return () => document.body.classList.remove('consent-open');
+  }, [open]);
+
+  const save = (optional) => {
+    try {
+      window.localStorage.setItem(CONSENT_KEY, JSON.stringify({ necessary: true, optional, savedAt: new Date().toISOString() }));
+    } catch { /* The visitor may block browser storage; the page still works. */ }
+    window.dispatchEvent(new CustomEvent('cookie-consent-changed', { detail: { necessary: true, optional } }));
+    setOpen(false);
+    setManaging(false);
+  };
+
+  if (!open) return null;
+  return <div className="consent-backdrop" role="presentation">
+    <section className="consent-dialog" role="dialog" aria-modal="true" aria-labelledby="consent-title" aria-describedby="consent-description">
+      <div className="consent-dialog__brand"><Cookie aria-hidden="true" /><span>PAK ARAB · PRIVACY</span></div>
+      <h2 id="consent-title">Your cookie choices</h2>
+      <p id="consent-description">We use necessary browser storage to remember your choice. Optional cookies may help us understand visits and improve the website, and will only be enabled if you accept them.</p>
+      <button className="consent-manage" type="button" aria-expanded={managing} onClick={() => setManaging(value => !value)}>{managing ? 'Hide details' : 'Learn more and manage'}</button>
+      {managing ? <div className="consent-details">
+        <div><span><b>Necessary</b><small>Required to remember your privacy choice and keep core website features working.</small></span><strong>Always on</strong></div>
+        <div><span><b>Optional</b><small>Reserved for consent-based analytics or personalization. No advertising cookies are currently loaded.</small></span><strong>Your choice</strong></div>
+      </div> : null}
+      <div className="consent-actions">
+        <button className="consent-accept" type="button" onClick={() => save(true)}>Accept all</button>
+        <button className="consent-reject" type="button" onClick={() => save(false)}>Reject non-essential</button>
+      </div>
+    </section>
+  </div>;
 }
 
 function App() {
@@ -329,12 +375,13 @@ function App() {
       </div></section>
     </main>
 
-    <footer><div className="container footer__top"><Logo light /><p>Professional manpower supply and workforce coordination for demanding industrial environments across the UAE.<br />{ADDRESS}</p><a className="button button--outline" href="#home">Back to top <ArrowDownRight /></a></div><div className="container footer__bottom"><span>© {new Date().getFullYear()} Pak Arab Manpower Supply LLC</span><span>Industrial imagery is AI-generated for illustration.</span></div></footer>
+    <footer><div className="container footer__top"><Logo light /><p>Professional manpower supply and workforce coordination for demanding industrial environments across the UAE.<br />{ADDRESS}</p><a className="button button--outline" href="#home">Back to top <ArrowDownRight /></a></div><div className="container footer__bottom"><span>© {new Date().getFullYear()} Pak Arab Manpower Supply LLC</span><div><button className="footer__privacy" type="button" onClick={() => window.dispatchEvent(new Event('open-cookie-preferences'))}>Cookie choices</button><span>Industrial imagery is AI-generated for illustration.</span></div></div></footer>
 
     <a className="whatsapp-float" href={whatsapp()} target="_blank" rel="noopener noreferrer" aria-label="Chat with Pak Arab Manpower Supply LLC on WhatsApp">
       <WhatsAppIcon />
       <span className="whatsapp-status" aria-hidden="true" />
     </a>
+    <CookieConsent />
   </div>;
 }
 

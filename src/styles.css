@@ -51,3 +51,28 @@ footer{background:#050b12;color:#91a0b3;padding:55px 0 25px}.footer__top{display
 .purpose__closing b { color: var(--navy); }
 @media (max-width: 900px) { .purpose__intro { display: block; } .purpose__intro > p { max-width: none; margin-top: 24px; } .purpose-card { padding-inline: 26px; } .purpose-card__art { width: calc(100% + 52px); margin-left: -26px; } .purpose-card__copy p { font-size: 16px; } }
 @media (max-width: 700px) { .purpose { padding-block: 70px; } .purpose__grid { grid-template-columns: 1fr; gap: 24px; } .purpose-card { padding: 28px 24px 0; } .purpose-card h3 { font-size: clamp(60px, 18vw, 82px); margin-top: 22px; } .purpose-card__statement { font-size: 25px; } .purpose-card__art { width: calc(100% + 48px); margin-left: -24px; } .purpose-card__copy p { font-size: 17px; line-height: 1.8; } .purpose__closing { align-items: start; flex-direction: column; } .purpose-card__top { font-size: 9px; letter-spacing: .12em; } .purpose__intro h2 { font-size: 40px; } }
+
+/* Consent experience */
+body.consent-open { overflow: hidden; }
+.consent-backdrop { position: fixed; z-index: 1000; inset: 0; display: grid; place-items: end center; padding: 28px; background: rgba(3, 9, 17, .66); backdrop-filter: blur(6px); }
+.consent-dialog { width: min(720px, 100%); max-height: calc(100svh - 56px); overflow: auto; padding: 34px; border: 1px solid rgba(255,255,255,.28); border-radius: 28px; background: #fff; color: var(--navy); box-shadow: 0 28px 90px rgba(0,0,0,.34); }
+.consent-dialog__brand { display: flex; align-items: center; gap: 10px; color: var(--red); font-size: 10px; font-weight: 800; letter-spacing: .16em; }
+.consent-dialog__brand svg { width: 27px; height: 27px; }
+.consent-dialog h2 { margin: 18px 0 14px; font: 800 clamp(32px,5vw,52px)/1.05 'Manrope',sans-serif; letter-spacing: -.045em; }
+.consent-dialog > p { margin: 0; color: #4d5868; font-size: 17px; line-height: 1.7; }
+.consent-manage { appearance: none; margin: 15px 0 0; padding: 2px 0; border: 0; border-bottom: 1px solid currentColor; background: transparent; color: var(--navy); font-weight: 800; cursor: pointer; }
+.consent-details { margin-top: 20px; border-top: 1px solid var(--line); }
+.consent-details > div { display: flex; justify-content: space-between; gap: 25px; padding: 17px 0; border-bottom: 1px solid var(--line); }
+.consent-details span,.consent-details b,.consent-details small { display: block; }
+.consent-details b { font: 800 14px 'Manrope',sans-serif; }
+.consent-details small { max-width: 470px; margin-top: 4px; color: var(--muted); font-size: 12px; line-height: 1.55; }
+.consent-details strong { align-self: center; min-width: max-content; color: var(--red); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
+.consent-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 28px; }
+.consent-actions button { min-height: 58px; padding: 14px 22px; border-radius: 999px; font-weight: 800; cursor: pointer; transition: transform .2s, box-shadow .2s, background .2s; }
+.consent-actions button:hover { transform: translateY(-2px); }
+.consent-accept { border: 2px solid var(--red); background: var(--red); color: #fff; box-shadow: 0 13px 30px rgba(197,18,49,.23); }
+.consent-accept:hover { background: #aa0d28; }
+.consent-reject { border: 2px solid var(--navy); background: #fff; color: var(--navy); }
+.footer__bottom > div { display: flex; gap: 20px; align-items: center; }
+.footer__privacy { padding: 0; border: 0; border-bottom: 1px solid currentColor; background: transparent; color: #c8d0dc; font: inherit; text-transform: uppercase; letter-spacing: .1em; cursor: pointer; }
+@media(max-width:700px){.consent-backdrop{align-items:end;padding:12px}.consent-dialog{max-height:calc(100svh - 24px);padding:25px 21px;border-radius:24px}.consent-dialog h2{font-size:36px}.consent-dialog>p{font-size:15px}.consent-actions{grid-template-columns:1fr}.consent-details>div{display:block}.consent-details strong{display:block;margin-top:9px}.footer__bottom>div{align-items:flex-start;flex-direction:column;gap:9px}}
