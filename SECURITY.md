@@ -1,22 +1,23 @@
 # Security scope
 
-This is a public static React/Vite marketing site. There are no application API endpoints, account sessions, database, payment processing or file uploads in this repository. The contact form opens a fixed WhatsApp destination with URL-encoded text for the visitor to review and send; input bounds are client-side usability protections, not server-side validation.
+This is a public, statically prerendered Next.js marketing site. There are no API endpoints, account sessions, database, payment processing or file uploads. Enquiry forms build a WhatsApp message in the browser and open the company's fixed WhatsApp number; visitors review and send it themselves. Nothing is stored or transmitted by this site. Input limits are client-side usability checks, not server-side validation.
 
 ## Controls
 
-- Vercel applies CSP, anti-framing, MIME-sniffing protection, HSTS, referrer policy, permissions restrictions and opener isolation on all routes.
-- Scripts load only from this site's origin; inline event handlers, eval, plugins, base-tag overrides, framing and native form POSTs are blocked.
-- Google Fonts and the Google Maps iframe are explicitly permitted. Inline styles remain allowed for GSAP/Vanta animation; inline JavaScript is not allowed.
-- Dependencies are pinned and deployed with npm ci. Security/build checks run on pushes and pull requests. Dependabot proposes weekly dependency and Actions updates; updates are not automatically merged.
-- Local secrets, environment files and Vercel credentials are ignored. No browser application secret should ever be added to public/ or a VITE_ variable.
-- Source maps are disabled for production. Public JavaScript and assets are necessarily downloadable; this is not a confidentiality boundary.
+- `next.config.ts` sets a Content-Security-Policy, anti-framing (`frame-ancestors 'none'`, `X-Frame-Options: DENY`), MIME-sniffing protection, HSTS, referrer policy, permissions restrictions and opener isolation on every route.
+- Scripts, styles and fonts load only from this site's origin. Fonts are self-hosted, and the only third-party frame allowed is the Google Maps embed.
+- `script-src` includes `'unsafe-inline'` because Next.js inlines small bootstrap scripts; nonces would force every page to render dynamically. No third-party scripts are loaded.
+- Dependencies are locked and installed with `npm ci`. GitHub Actions runs the production dependency audit, lint, typecheck and build on every push and pull request. Dependabot proposes weekly updates, which are not merged automatically.
+- Environment files and Vercel credentials are git-ignored. Never put secrets in `public/` or a `NEXT_PUBLIC_` variable.
+
+## Known advisory
+
+`npm audit` (including dev dependencies) reports a ReDoS advisory in `picomatch` (GHSA-fc5q-39xc-vjpf), pulled in only by ESLint tooling. It does not ship to the browser, and no patched release exists yet. CI audits production dependencies (`--omit=dev`). Re-check when a fixed `picomatch` is published.
 
 ## Verification
 
-Run npm ci, npm run test:security, npm audit, and npm run build. Use npm run preview to serve the production bundle with the same headers as Vercel. Check normal navigation, animated sections, workforce filtering, Google Fonts, Maps and the WhatsApp handoff after CSP changes.
-
-The initial dependency audit reported no known vulnerabilities; this is time-sensitive and not proof of absence of security defects. A limited tracked-source pattern check found no matching private-key/API-token patterns. It is not a full history or credential audit.
+Run `npm ci`, `npm audit --omit=dev`, `npm run lint`, `npm run typecheck` and `npm run build`, then `npm start` to serve the production build with the same headers as Vercel. After CSP changes, check navigation, animations, the workforce filter, the Google Maps embed and the WhatsApp handoff.
 
 ## Account controls
 
-GitHub/Vercel owner 2FA, recovery methods, access reviews, branch protection, DNS/registrar controls and account credentials are separate from the website code. Existing hosting access protections were preserved. No penetration-test certification or guarantee of complete security is implied. Review access and dependency alerts regularly. If adding a backend later, implement server validation, authorization, rate limits and CSRF protection as appropriate.
+GitHub/Vercel 2FA, branch protection, DNS/registrar access and account credentials are outside this codebase. Review access and dependency alerts regularly. If a backend is added later, implement server-side validation, authorisation, rate limiting and CSRF protection.
