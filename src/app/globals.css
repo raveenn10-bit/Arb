@@ -191,9 +191,6 @@
   animation: marquee-ltr 120s linear infinite;
   will-change: transform;
 }
-[data-paused] .marquee-track {
-  animation-play-state: paused;
-}
 @media (prefers-reduced-motion: reduce) {
   .marquee-track {
     animation: none;
@@ -202,8 +199,7 @@
     justify-content: center;
     row-gap: 1.5rem;
   }
-  .marquee-dup,
-  .marquee-control {
+  .marquee-dup {
     display: none;
   }
 }

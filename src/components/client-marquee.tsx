@@ -1,37 +1,21 @@
-"use client";
-
 import Image from "next/image";
-import { useState } from "react";
-import { Pause, Play } from "lucide-react";
 import { clients, type Client } from "@/lib/site";
 
 /**
  * Client logos auto-scrolling left → right on a plain white background.
- * Calm speed (~4.5s per logo), pauses on hover/focus, has a pause button (WCAG 2.2.2),
+ * Calm speed (~4.5s per logo), pauses on hover/focus,
  * and shows a static wrapped row for visitors who prefer reduced motion.
  */
 export function ClientMarquee({ rows = 1 }: { rows?: 1 | 2 }) {
-  const [paused, setPaused] = useState(false);
   const half = Math.ceil(clients.length / 2);
   const groups = rows === 2 ? [clients.slice(0, half), clients.slice(half)] : [clients];
 
   return (
     <div className="bg-white">
-      <div role="region" aria-label="Client logos" data-paused={paused || undefined} className="space-y-6 sm:space-y-10">
+      <div role="region" aria-label="Client logos" className="space-y-6 sm:space-y-10">
         {groups.map((group, i) => (
           <Row key={i} list={group} />
         ))}
-      </div>
-      <div className="marquee-control mt-6 flex justify-center">
-        <button
-          type="button"
-          onClick={() => setPaused((p) => !p)}
-          aria-pressed={paused}
-          className="text-muted hover:text-ink inline-flex min-h-11 items-center gap-2 px-3 text-sm font-semibold transition-colors"
-        >
-          {paused ? <Play aria-hidden="true" className="size-4" /> : <Pause aria-hidden="true" className="size-4" />}
-          {paused ? "Play logos" : "Pause logos"}
-        </button>
       </div>
     </div>
   );
