@@ -42,18 +42,21 @@ export function Header() {
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-300 ${
-        onDarkHero ? "bg-transparent" : "bg-white/95 shadow-[0_1px_0_rgb(13_15_18/0.08)] backdrop-blur-md"
-      }`}
-    >
+    <header className="fixed inset-x-0 top-0 z-50">
+      {/* Background lives on its own layer: backdrop-filter on <header> would trap the fixed mobile menu inside it */}
+      <div
+        aria-hidden="true"
+        className={`absolute inset-x-0 top-0 h-[4.75rem] transition-[background-color,box-shadow,opacity] duration-300 lg:h-[5.5rem] ${
+          onDarkHero ? "opacity-0" : "bg-white/95 opacity-100 shadow-[0_1px_0_rgb(13_15_18/0.08)] backdrop-blur-md"
+        }`}
+      />
       <a
         href="#main"
         className="bg-brand focus:fixed focus:top-3 focus:left-3 focus:z-[60] sr-only px-4 py-2 font-semibold text-white focus:not-sr-only"
       >
         Skip to content
       </a>
-      <div className="container-site flex h-[4.75rem] items-center justify-between gap-6 lg:h-[5.5rem]">
+      <div className="container-site relative flex h-[4.75rem] items-center justify-between gap-6 lg:h-[5.5rem]">
         <Link href="/" aria-label={`${site.name} — home`} className="shrink-0">
           <Logo tone={onDarkHero ? "light" : "dark"} />
         </Link>
