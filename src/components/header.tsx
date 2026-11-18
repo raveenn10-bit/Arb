@@ -57,7 +57,7 @@ export function Header() {
         Skip to content
       </a>
       <div className="container-site relative flex h-[4.75rem] items-center justify-between gap-6 lg:h-[5.5rem]">
-        <Link href="/" aria-label={`${site.name} — home`} className="shrink-0">
+        <Link href="/" className="shrink-0">
           <Logo tone={onDarkHero ? "light" : "dark"} />
         </Link>
 

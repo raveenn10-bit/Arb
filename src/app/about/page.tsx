@@ -5,10 +5,12 @@ import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading, ButtonLink } from "@/components/ui";
 import { CtaBand } from "@/components/cta-band";
+import { BreadcrumbLd } from "@/components/breadcrumb-ld";
+import { site, sectors, trades, emirates } from "@/lib/site";
 import { credentials, isoStandards } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "About Us — Mission, Vision & Quality Management",
+  title: "About Us — ICV-Certified Manpower Supplier in Abu Dhabi",
   description:
     "Pak Arab Manpower Supply LLC is an ICV-certified, ADNOC-approved manpower supplier in Mussafah, Abu Dhabi, with an independent QA/QC department and ISO-aligned management systems.",
   alternates: { canonical: "/about" },
@@ -24,6 +26,7 @@ const qms = [
 export default function AboutPage() {
   return (
     <>
+      <BreadcrumbLd crumbs={[{ href: "/about", label: "About" }]} />
       <PageHero
         eyebrow="About Pak Arab"
         title="Bridging talent and opportunity"
@@ -33,6 +36,31 @@ export default function AboutPage() {
         imagePosition="72% center"
         crumbs={[{ href: "/about", label: "About" }]}
       />
+
+      <section aria-labelledby="facts-title" className="border-line border-b bg-white">
+        <div className="container-site py-14 lg:py-16">
+          <h2 id="facts-title" className="eyebrow slash text-muted mb-8">
+            Company at a glance
+          </h2>
+          <dl className="grid gap-x-10 gap-y-7 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { k: "Company", v: `${site.name} (${site.nameArabic})` },
+              { k: "Head office", v: `${site.address.line2}, ${site.address.city}, UAE` },
+              { k: "Service", v: "Manpower supply: skilled, semi-skilled and supervisory workforce" },
+              { k: "Sectors", v: sectors.map((s) => s.title).join(", ") },
+              { k: "Trades", v: `${trades.length} trade categories, onshore and offshore` },
+              { k: "Contracts", v: "Short-term (shutdowns, turnarounds) and long-term" },
+              { k: "Coverage", v: `All seven Emirates, including ${emirates.slice(0, 4).join(", ")}` },
+              { k: "Credentials", v: "ICV certified · ADNOC approved · CICPA eligible · ISO 9001, 14001, 45001" },
+            ].map((f) => (
+              <div key={f.k} className="border-brand border-l-2 pl-4">
+                <dt className="text-muted text-sm font-semibold tracking-[0.08em] uppercase">{f.k}</dt>
+                <dd className="mt-1.5 font-medium">{f.v}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
 
       <section aria-labelledby="story-title" className="py-24 lg:py-32">
         <div className="container-site grid gap-14 lg:grid-cols-12">

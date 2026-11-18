@@ -13,7 +13,7 @@
   --color-brand: #d0021b;
   --color-brand-dark: #a50016;
   --color-brand-soft: #fbe9eb;
-  --color-whatsapp: #1fae4b;
+  --color-whatsapp: #0f7f39;
 
   --font-sans: var(--font-barlow), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-barlow-condensed), "Arial Narrow", ui-sans-serif, sans-serif;
@@ -121,14 +121,10 @@
    GSAP's inline styles take over on hydration; a safety timer removes .js-motion if JS stalls. */
 @media (prefers-reduced-motion: no-preference) {
   .js-motion [data-reveal],
-  .js-motion .hero-fade,
   .js-motion .hero-cred,
   .js-motion .ph-in,
   .js-motion .crew-in {
     opacity: 0;
-  }
-  .js-motion .hero-line > span {
-    transform: translateY(110%);
   }
   .js-motion .hero-panel {
     clip-path: polygon(14% 100%, 100% 100%, 86% 100%, 0% 100%);
@@ -138,6 +134,46 @@
   }
   .js-motion .ph-img {
     clip-path: polygon(12% 100%, 100% 100%, 100% 100%, 12% 100%);
+  }
+}
+
+/* Hero text intro runs in CSS from first paint, so it never waits for JavaScript (keeps LCP fast). */
+@keyframes hero-rise {
+  from {
+    transform: translateY(110%);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes hero-drift {
+  from {
+    transform: translateY(18px);
+  }
+  to {
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-line > span {
+    animation: hero-rise 1.1s var(--ease-out-expo) both;
+  }
+  .hero-fade {
+    animation: hero-fade-up 0.9s var(--ease-out-expo) both;
+  }
+  /* Transform only, never hidden: this paragraph is the page's largest contentful paint */
+  .hero-drift {
+    animation: hero-drift 1s var(--ease-out-expo) 0.4s both;
   }
 }
 

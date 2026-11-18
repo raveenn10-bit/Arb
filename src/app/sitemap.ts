@@ -11,7 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/clients", priority: 0.7 },
   ];
   return [
-    ...pages.map((p) => ({ url: `${site.url}${p.path}`, changeFrequency: "monthly" as const, priority: p.priority })),
-    ...sectors.map((s) => ({ url: `${site.url}/services/${s.slug}`, changeFrequency: "monthly" as const, priority: 0.8 })),
+    ...pages.map((p) => ({ url: `${site.url}${p.path}`, lastModified: site.lastUpdated, changeFrequency: "monthly" as const, priority: p.priority })),
+    ...sectors.map((s) => ({ url: `${site.url}/services/${s.slug}`, lastModified: site.lastUpdated, changeFrequency: "monthly" as const, priority: 0.8 })),
   ];
 }

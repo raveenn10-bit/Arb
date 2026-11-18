@@ -6,9 +6,10 @@ import { SectionHeading } from "@/components/ui";
 import { SectorGrid } from "@/components/sector-grid";
 import { ProcessSteps } from "@/components/process-steps";
 import { CtaBand } from "@/components/cta-band";
+import { BreadcrumbLd } from "@/components/breadcrumb-ld";
 
 export const metadata: Metadata = {
-  title: "Manpower Services — Oil & Gas, Civil, Mechanical & Electrical",
+  title: "Manpower Supply Services — Oil & Gas, Civil & MEP",
   description:
     "Flexible manpower supply for oil & gas, civil construction, mechanical and electrical/MEP projects in the UAE. Vetted workers, payroll and compliance handled.",
   alternates: { canonical: "/services" },
@@ -40,6 +41,7 @@ const benefits = [
 export default function ServicesPage() {
   return (
     <>
+      <BreadcrumbLd crumbs={[{ href: "/services", label: "Services" }]} />
       <PageHero
         eyebrow="Services"
         title="Manpower solutions for industrial projects"

@@ -9,6 +9,7 @@ import { ButtonLink, SectionHeading } from "@/components/ui";
 import { CtaBand } from "@/components/cta-band";
 import { EnquiryForm } from "@/components/enquiry-form";
 import { JsonLd } from "@/components/json-ld";
+import { BreadcrumbLd } from "@/components/breadcrumb-ld";
 import { sectors, site, trades } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -20,7 +21,7 @@ export async function generateMetadata({ params }: PageProps<"/services/[slug]">
   const sector = sectors.find((s) => s.slug === slug);
   if (!sector) return {};
   return {
-    title: `${sector.title} Manpower Supply in the UAE`,
+    title: `${sector.title} Manpower Supply in Abu Dhabi & the UAE`,
     description: sector.summary,
     alternates: { canonical: `/services/${sector.slug}` },
     openGraph: { title: `${sector.title} Manpower Supply | ${site.name}`, description: sector.summary },
@@ -49,6 +50,12 @@ export default async function SectorPage({ params }: PageProps<"/services/[slug]
   return (
     <>
       <JsonLd data={serviceLd} />
+      <BreadcrumbLd
+        crumbs={[
+          { href: "/services", label: "Services" },
+          { href: `/services/${sector.slug}`, label: sector.title },
+        ]}
+      />
       <PageHero
         eyebrow={`Sector ${sector.index} · ${sector.short}`}
         title={`${sector.title} manpower`}

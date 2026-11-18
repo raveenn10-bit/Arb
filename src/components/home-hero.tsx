@@ -17,9 +17,7 @@ export function HomeHero() {
       const mm = gsap.matchMedia();
       mm.add(MOTION_OK, () => {
         const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
-        tl.fromTo(".hero-line > span", { yPercent: 110, y: 0 }, { yPercent: 0, y: 0, duration: 1.1, stagger: 0.09 }, 0.15)
-          .fromTo(".hero-fade", { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.9, stagger: 0.08 }, 0.55)
-          .fromTo(
+        tl.fromTo(
             ".hero-panel",
             { clipPath: "polygon(14% 100%, 100% 100%, 86% 100%, 0% 100%)" },
             { clipPath: "polygon(14% 0%, 100% 0%, 86% 100%, 0% 100%)", duration: 1.4, stagger: 0.15, ease: "expo.inOut" },
@@ -54,19 +52,21 @@ export function HomeHero() {
       <div aria-hidden="true" className="grid-lines absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_at_30%_40%,black,transparent_75%)]" />
       <div className="container-site grid min-h-[100svh] items-center gap-12 pt-32 pb-16 lg:grid-cols-12 lg:gap-8 lg:pt-36">
         <div className="lg:col-span-7">
-          <p className="hero-fade eyebrow slash mb-6 text-white/70">Manpower supply · Abu Dhabi, UAE</p>
-          <h1 id="hero-title" className="text-[3.4rem] leading-[0.88] font-bold uppercase sm:text-7xl lg:text-[5.6rem] xl:text-[6.4rem]">
+          <h1 className="hero-fade eyebrow slash mb-6 text-white/70" style={{ animationDelay: "0.05s" }}>Manpower supply company in Abu Dhabi, UAE</h1>
+          <p id="hero-title" className="font-display text-[3.4rem] [text-wrap:balance] leading-[0.88] font-bold uppercase sm:text-7xl lg:text-[5.6rem] xl:text-[6.4rem]">
             {lines.map((l, i) => (
               <span key={l} className="hero-line block overflow-hidden pb-[0.04em]">
-                <span className={`block ${i === 2 ? "text-brand" : ""}`}>{l}</span>
+                <span className={`block ${i === 2 ? "text-brand" : ""}`} style={{ animationDelay: `${0.12 + i * 0.09}s` }}>
+                  {l}
+                </span>
               </span>
             ))}
-          </h1>
-          <p className="hero-fade mt-8 max-w-xl text-lg text-white/75 sm:text-xl">
+          </p>
+          <p className="hero-drift mt-8 max-w-xl text-lg text-white/75 sm:text-xl">
             Vetted engineers, supervisors and tradesmen for onshore and offshore oil &amp; gas, civil construction and MEP
             projects, ready for short- and long-term contracts.
           </p>
-          <div className="hero-fade mt-10 flex flex-col gap-3 sm:flex-row">
+          <div className="hero-fade mt-10 flex flex-col gap-3 sm:flex-row" style={{ animationDelay: "0.55s" }}>
             <ButtonLink href="/contact">Request workers</ButtonLink>
             <ButtonLink href="/workforce" variant="outline-light">
               Browse {trades.length}+ trades

@@ -3,11 +3,26 @@
  * Update contact numbers, WhatsApp, address and lists here — every page reads from this file.
  */
 
+function resolveSiteUrl(): string {
+  const explicit = process.env.NEXT_PUBLIC_SITE_URL;
+  if (explicit) return explicit.replace(/\/$/, "");
+  const vercelProd = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+  if (vercelProd) return `https://${vercelProd}`;
+  return "https://www.pakarabmps.com";
+}
+
 export const site = {
   name: "Pak Arab Manpower Supply LLC",
   shortName: "Pak Arab",
   nameArabic: "باك عرب لتوريد العمالة ذ.م.م",
-  url: "https://www.pakarabmps.com",
+  /**
+   * Canonical site URL. Set NEXT_PUBLIC_SITE_URL in Vercel once a custom domain is live
+   * (e.g. https://www.pakarabmps.com). Otherwise the Vercel production domain is used,
+   * so canonicals, sitemap and structured data always point at the site actually being served.
+   */
+  url: resolveSiteUrl(),
+  /** Date content was last reviewed, used for sitemap lastModified. */
+  lastUpdated: "2026-11-18",
   tagline: "Industrial workforce for the UAE's oil, gas and construction projects",
   description:
     "ICV-certified manpower supplier in Abu Dhabi. Skilled engineers, supervisors and tradesmen for onshore and offshore oil & gas, civil construction, mechanical and electrical projects across the UAE.",
@@ -357,6 +372,14 @@ export const faqs = [
   {
     q: "Are your workers trained and inducted?",
     a: "Yes. Company policy requires every worker to complete induction before mobilisation, with refresher training at regular intervals. Our QA/QC function monitors performance on site.",
+  },
+  {
+    q: "What does ICV certification mean when hiring a manpower supplier?",
+    a: "ICV (In-Country Value) is a UAE government programme that measures how much of a supplier's spending stays in the UAE economy. ADNOC and many government entities consider a supplier's ICV certificate when evaluating tenders, so working with an ICV-certified manpower supplier such as Pak Arab can support your own bid and procurement requirements.",
+  },
+  {
+    q: "What is a CICPA pass and why does it matter?",
+    a: "CICPA is the Critical Infrastructure and Coastal Protection Authority, which controls access to restricted oil & gas, industrial and coastal sites in Abu Dhabi. Workers need a valid CICPA pass to enter these sites. Pak Arab Manpower Supply is eligible to process CICPA permits for its workforce.",
   },
   {
     q: "Which areas of the UAE do you cover?",

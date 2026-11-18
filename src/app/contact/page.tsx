@@ -7,10 +7,11 @@ import { WhatsAppIcon } from "@/components/ui";
 import { ContactForm } from "@/components/contact-form";
 import { EnquiryForm } from "@/components/enquiry-form";
 import { site } from "@/lib/site";
+import { BreadcrumbLd } from "@/components/breadcrumb-ld";
 import { defaultWhatsappMessage, whatsappLink } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
-  title: "Contact & Request Workers",
+  title: "Contact Us — Request Manpower in Abu Dhabi, UAE",
   description: `Request manpower or contact ${site.name} in Mussafah, Abu Dhabi. Call ${site.phones[0].display}, WhatsApp ${site.whatsappDisplay} or email ${site.email}.`,
   alternates: { canonical: "/contact" },
 };
@@ -20,9 +21,10 @@ const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(site.address.
 export default function ContactPage() {
   return (
     <>
+      <BreadcrumbLd crumbs={[{ href: "/contact", label: "Contact" }]} />
       <PageHero
         eyebrow="Contact"
-        title="Request workers"
+        title="Request manpower"
         intro="Send your requirement and our team will reply on WhatsApp with availability and a mobilisation plan."
         image="/images/site-surveyor.webp"
         crumbs={[{ href: "/contact", label: "Contact" }]}

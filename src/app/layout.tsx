@@ -10,8 +10,8 @@ import { sectors, site } from "@/lib/site";
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} | Industrial Manpower Supply in Abu Dhabi, UAE`,
-    template: `%s | ${site.name}`,
+    default: "Manpower Supply Company in Abu Dhabi, UAE | Pak Arab Manpower",
+    template: "%s | Pak Arab Manpower",
   },
   description: site.description,
   applicationName: site.name,
@@ -46,6 +46,11 @@ export const metadata: Metadata = {
   },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } },
   category: "business",
+  // Set GOOGLE_SITE_VERIFICATION / BING_SITE_VERIFICATION in Vercel to verify Search Console / Bing Webmaster Tools.
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION,
+    other: process.env.BING_SITE_VERIFICATION ? { "msvalidate.01": process.env.BING_SITE_VERIFICATION } : undefined,
+  },
 };
 
 export const viewport: Viewport = {
@@ -54,41 +59,64 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+const orgId = `${site.url}/#organization`;
 const organizationLd = {
   "@context": "https://schema.org",
-  "@type": "EmploymentAgency",
-  "@id": `${site.url}/#organization`,
-  name: site.name,
-  alternateName: [site.shortName, site.nameArabic],
-  url: site.url,
-  logo: `${site.url}/images/logo-mark.svg`,
-  image: `${site.url}/opengraph-image`,
-  description: site.description,
-  email: site.email,
-  telephone: site.phones[0].tel,
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: `${site.address.line1}, ${site.address.line2}`,
-    postOfficeBoxNumber: site.address.poBox.replace(/\D/g, ""),
-    addressLocality: site.address.city,
-    addressRegion: "Abu Dhabi",
-    addressCountry: site.address.countryCode,
-  },
-  areaServed: { "@type": "Country", name: "United Arab Emirates" },
-  contactPoint: site.phones.map((p) => ({
-    "@type": "ContactPoint",
-    telephone: p.tel,
-    contactType: "sales",
-    areaServed: "AE",
-    availableLanguage: ["English"],
-  })),
-  knowsAbout: sectors.map((s) => s.title),
-  hasCredential: [
-    "UAE In-Country Value (ICV) Certificate",
-    "ISO 9001:2015",
-    "ISO 14001:2015",
-    "ISO 45001:2018",
-  ].map((name) => ({ "@type": "EducationalOccupationalCredential", name })),
+  "@graph": [
+    {
+      "@type": "EmploymentAgency",
+      "@id": orgId,
+      name: site.name,
+      alternateName: [site.shortName, "Pak Arab Manpower", site.nameArabic],
+      url: site.url,
+      logo: { "@type": "ImageObject", url: `${site.url}/icon-512.png`, width: 512, height: 512 },
+      image: [`${site.url}/images/crew-refinery-sunset.webp`, `${site.url}/images/crew-team-site.webp`],
+      description: site.description,
+      email: site.email,
+      telephone: site.phones[0].tel,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: `${site.address.line1}, ${site.address.line2}`,
+        postOfficeBoxNumber: site.address.poBox.replace(/\D/g, ""),
+        addressLocality: site.address.city,
+        addressRegion: "Abu Dhabi",
+        addressCountry: site.address.countryCode,
+      },
+      areaServed: [
+        { "@type": "Country", name: "United Arab Emirates" },
+        ...["Abu Dhabi", "Dubai", "Sharjah", "Ajman", "Umm Al Quwain", "Ras Al Khaimah", "Fujairah"].map((name) => ({
+          "@type": "AdministrativeArea",
+          name,
+        })),
+      ],
+      contactPoint: site.phones.map((p) => ({
+        "@type": "ContactPoint",
+        telephone: p.tel,
+        contactType: "sales",
+        areaServed: "AE",
+        availableLanguage: ["English"],
+      })),
+      knowsAbout: [...sectors.map((s) => s.title), "Manpower supply", "CICPA permits", "In-Country Value (ICV)"],
+      hasCredential: [
+        "UAE In-Country Value (ICV) Certificate",
+        "ISO 9001:2015",
+        "ISO 14001:2015",
+        "ISO 45001:2018",
+      ].map((name) => ({ "@type": "EducationalOccupationalCredential", name })),
+      makesOffer: sectors.map((s) => ({
+        "@type": "Offer",
+        itemOffered: { "@type": "Service", name: `${s.title} manpower supply`, url: `${site.url}/services/${s.slug}` },
+      })),
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${site.url}/#website`,
+      url: site.url,
+      name: site.name,
+      inLanguage: "en-AE",
+      publisher: { "@id": orgId },
+    },
+  ],
 };
 
 /** Runs before paint: enables motion "from" states only when JS is running, with a safety fallback. */

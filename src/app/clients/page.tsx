@@ -3,6 +3,7 @@ import { PageHero } from "@/components/page-hero";
 import { ClientWall } from "@/components/client-wall";
 import { CtaBand } from "@/components/cta-band";
 import { clients } from "@/lib/site";
+import { BreadcrumbLd } from "@/components/breadcrumb-ld";
 
 export const metadata: Metadata = {
   title: "Our Clients — ADNOC, NPCC, Lamprell & More",
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
 export default function ClientsPage() {
   return (
     <>
+      <BreadcrumbLd crumbs={[{ href: "/clients", label: "Clients" }]} />
       <PageHero
         eyebrow="Our clients"
         title="Trusted on the UAE's major projects"
