@@ -28,7 +28,7 @@ whatsapp: "971553842555",        // digits only, international format
 whatsappDisplay: "+971 55 384 2555",
 ```
 
-- Client logos: `public/images/clients/<slug>.webp` (slug must match `clients` in `site.ts`).
+- Client logos: `public/images/client-logos/<slug>.webp` (slug must match `clients` in `site.ts`).
 - Photos: `public/images/*.webp`.
 - Certification marks: `public/images/certs/`.
 

@@ -13,10 +13,10 @@ export function ClientWall({ limit, className = "" }: { limit?: number; classNam
           className={`group border-line relative flex aspect-[16/9] items-center justify-center border-r border-b p-5 sm:p-7 ${c.dark ? "bg-ink" : "bg-white"}`}
         >
           <Image
-            src={`/images/clients/${c.slug}.webp`}
+            src={`/images/client-logos/${c.slug}.webp`}
             alt={c.name}
-            width={320}
-            height={180}
+            width={640}
+            height={360}
             sizes="(min-width: 1280px) 15vw, (min-width: 640px) 28vw, 45vw"
             className="h-full max-h-20 w-auto max-w-full object-contain transition-transform duration-300 ease-out group-hover:scale-[1.04]"
           />
