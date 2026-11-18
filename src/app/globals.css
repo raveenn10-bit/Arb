@@ -177,6 +177,37 @@
   }
 }
 
+/* Client logo marquee: logos travel left → right. The doubled track starts shifted by half
+   its width and slides back to 0, so the loop is seamless. */
+@keyframes marquee-ltr {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+.marquee-track {
+  animation: marquee-ltr 120s linear infinite;
+  will-change: transform;
+}
+[data-paused] .marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 1.5rem;
+  }
+  .marquee-dup,
+  .marquee-control {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

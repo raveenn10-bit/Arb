@@ -6,7 +6,7 @@ import { Reveal } from "@/components/reveal";
 import { SectionHeading, ButtonLink } from "@/components/ui";
 import { StatBand } from "@/components/stat-band";
 import { SectorGrid } from "@/components/sector-grid";
-import { ClientWall } from "@/components/client-wall";
+import { ClientMarquee } from "@/components/client-marquee";
 import { ProcessSteps } from "@/components/process-steps";
 import { Faq } from "@/components/faq";
 import { CtaBand } from "@/components/cta-band";
@@ -123,7 +123,7 @@ export default function HomePage() {
       </section>
 
       {/* Clients */}
-      <section aria-labelledby="clients-title" className="py-24 lg:py-32">
+      <section aria-labelledby="clients-title" className="bg-white py-24 lg:py-32">
         <div className="container-site">
           <Reveal className="mb-14 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <SectionHeading
@@ -136,7 +136,7 @@ export default function HomePage() {
               </ButtonLink>
             </div>
           </Reveal>
-          <ClientWall limit={15} />
+          <ClientMarquee />
         </div>
       </section>
 

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/page-hero";
-import { ClientWall } from "@/components/client-wall";
+import { ClientMarquee } from "@/components/client-marquee";
 import { CtaBand } from "@/components/cta-band";
 import { clients } from "@/lib/site";
 import { BreadcrumbLd } from "@/components/breadcrumb-ld";
@@ -23,9 +23,9 @@ export default function ClientsPage() {
         image="/images/offshore-platform.webp"
         crumbs={[{ href: "/clients", label: "Clients" }]}
       />
-      <section aria-label="Client logos" className="py-20 lg:py-28">
+      <section aria-label="Our clients" className="bg-white py-20 lg:py-28">
         <div className="container-site">
-          <ClientWall />
+          <ClientMarquee rows={2} />
           <p className="text-muted mt-8 text-sm">All logos and trademarks are the property of their respective owners.</p>
         </div>
       </section>
