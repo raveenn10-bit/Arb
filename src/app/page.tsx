@@ -10,6 +10,7 @@ import { ClientWall } from "@/components/client-wall";
 import { ProcessSteps } from "@/components/process-steps";
 import { Faq } from "@/components/faq";
 import { CtaBand } from "@/components/cta-band";
+import { CrewBand } from "@/components/crew-band";
 import { EnquiryForm } from "@/components/enquiry-form";
 import { JsonLd } from "@/components/json-ld";
 import { clients, faqs, isoStandards, sectors, site, trades } from "@/lib/site";
@@ -67,6 +68,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <CrewBand />
 
       {/* Sectors */}
       <section aria-labelledby="sectors-title" className="bg-paper-2 py-24 lg:py-32">

@@ -55,6 +55,7 @@ export default async function SectorPage({ params }: PageProps<"/services/[slug]
         intro={sector.summary}
         image={sector.image}
         imageAlt={sector.imageAlt}
+        imagePosition={sector.imagePosition}
         crumbs={[
           { href: "/services", label: "Services" },
           { href: `/services/${sector.slug}`, label: sector.title },

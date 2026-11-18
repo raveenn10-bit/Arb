@@ -123,7 +123,8 @@
   .js-motion [data-reveal],
   .js-motion .hero-fade,
   .js-motion .hero-cred,
-  .js-motion .ph-in {
+  .js-motion .ph-in,
+  .js-motion .crew-in {
     opacity: 0;
   }
   .js-motion .hero-line > span {

@@ -80,6 +80,7 @@ export type Sector = {
   body: string[];
   image: string;
   imageAlt: string;
+  imagePosition?: string;
   highlights: string[];
   tradeGroups: TradeGroup[];
   divisions: Array<"MEP" | "Civil">;
@@ -110,8 +111,9 @@ export const sectors: Sector[] = [
       "The UAE's oil and gas industry runs on reliable people. We have supplied technical and non-technical manpower to major operators and EPC contractors across the sector, onshore and offshore.",
       "Our ICV and ADNOC credentials, together with CICPA permit eligibility, mean our teams can be mobilised to controlled sites with the documentation already in order.",
     ],
-    image: "/images/offshore-crew.webp",
-    imageAlt: "Offshore crew in orange coveralls working on a platform deck",
+    image: "/images/crew-refinery-sunset.webp",
+    imageAlt: "Pak Arab Manpower Supply crew in red branded coveralls reviewing plans at a refinery at sunset",
+    imagePosition: "70% center",
     highlights: [
       "ADNOC-approved Job Performers and Performing Authorities",
       "CICPA-eligible workforce for restricted and offshore sites",

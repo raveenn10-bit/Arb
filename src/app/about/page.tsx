@@ -28,7 +28,9 @@ export default function AboutPage() {
         eyebrow="About Pak Arab"
         title="Bridging talent and opportunity"
         intro="We partner with clients to understand their goals, then build teams of vetted, inducted and well-supported people who deliver on site."
-        image="/images/site-engineers.webp"
+        image="/images/crew-refinery-sunset.webp"
+        imageAlt="Pak Arab Manpower Supply crew in red branded coveralls at a refinery"
+        imagePosition="72% center"
         crumbs={[{ href: "/about", label: "About" }]}
       />
 
@@ -59,11 +61,11 @@ export default function AboutPage() {
           <Reveal className="relative lg:col-span-6" y={40}>
             <div data-reveal className="clip-slant-r relative aspect-[4/5] overflow-hidden bg-steel">
               <Image
-                src="/images/valve-inspection.webp"
-                alt="Technician in orange coveralls inspecting valves at an industrial plant"
+                src="/images/crew-team-site.webp"
+                alt="Pak Arab Manpower Supply team in blue branded coveralls and hard hats at an oil and gas plant"
                 fill
                 sizes="(min-width: 1024px) 45vw, 92vw"
-                className="object-cover"
+                className="object-cover object-[50%_center]"
               />
             </div>
             <div data-reveal className="bg-brand absolute -bottom-6 left-0 max-w-xs p-7 text-white sm:left-[-1.5rem]">

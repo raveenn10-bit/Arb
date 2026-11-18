@@ -14,6 +14,7 @@ export function PageHero({
   intro,
   image,
   imageAlt = "",
+  imagePosition = "center",
   crumbs = [],
   children,
 }: {
@@ -22,6 +23,8 @@ export function PageHero({
   intro?: ReactNode;
   image?: string;
   imageAlt?: string;
+  /** CSS object-position for the hero image, e.g. "70% center" */
+  imagePosition?: string;
   crumbs?: Crumb[];
   children?: ReactNode;
 }) {
@@ -53,7 +56,7 @@ export function PageHero({
       <div aria-hidden="true" className="grid-lines absolute inset-0 -z-10 [mask-image:linear-gradient(to_right,black,transparent_70%)]" />
       {image && (
         <div className="ph-img clip-slant-r absolute inset-y-0 right-0 -z-10 hidden w-[46%] overflow-hidden lg:block">
-          <Image src={image} alt={imageAlt} fill priority sizes="46vw" className="scale-110 object-cover" />
+          <Image src={image} alt={imageAlt} fill priority sizes="46vw" className="scale-110 object-cover" style={{ objectPosition: imagePosition }} />
           <div className="from-ink via-ink/30 absolute inset-0 bg-gradient-to-r to-transparent" />
         </div>
       )}

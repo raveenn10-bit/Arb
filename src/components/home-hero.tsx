@@ -74,23 +74,23 @@ export function HomeHero() {
           </div>
         </div>
 
-        <div className="relative h-[24rem] sm:h-[30rem] lg:col-span-5 lg:h-[38rem]" aria-hidden="true">
+        <div className="relative h-[24rem] sm:h-[30rem] lg:col-span-5 lg:h-[38rem]" role="img" aria-label="Pak Arab Manpower Supply crews in branded coveralls and hard hats at an oil and gas facility">
           <div className="hero-slash absolute top-[-6%] left-[2%] h-[70%] w-10 -skew-x-[22deg] sm:w-14">
             <div className="hero-slash-fill bg-brand h-full w-full origin-top" />
           </div>
           <div className="hero-panel hero-panel-a clip-slant absolute inset-y-0 right-0 left-[12%] overflow-hidden bg-steel">
             <Image
-              src="/images/offshore-platform.webp"
+              src="/images/crew-refinery-sunset.webp"
               alt=""
               fill
               priority
-              sizes="(min-width: 1024px) 36vw, 90vw"
-              className="scale-110 object-cover"
+              sizes="(min-width: 1024px) 40vw, 90vw"
+              className="scale-110 object-cover object-[84%_center]"
             />
             <div className="from-ink/50 absolute inset-0 bg-gradient-to-t to-transparent" />
           </div>
           <div className="hero-panel hero-panel-b clip-slant absolute bottom-[-4%] left-0 h-[42%] w-[58%] overflow-hidden border-4 border-ink bg-steel">
-            <Image src="/images/site-engineers.webp" alt="" fill sizes="(min-width: 1024px) 22vw, 55vw" className="object-cover" />
+            <Image src="/images/crew-team-site.webp" alt="" fill sizes="(min-width: 1024px) 24vw, 55vw" className="object-cover object-[50%_30%]" />
           </div>
         </div>
       </div>

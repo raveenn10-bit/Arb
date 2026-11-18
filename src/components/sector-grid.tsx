@@ -18,6 +18,7 @@ export function SectorGrid() {
               alt={s.imageAlt}
               fill
               sizes="(min-width: 768px) 45vw, 92vw"
+              style={s.imagePosition ? { objectPosition: s.imagePosition } : undefined}
               className="object-cover opacity-70 transition-[transform,opacity] duration-700 ease-[var(--ease-out-expo)] group-hover:scale-105 group-hover:opacity-55"
             />
             <div className="from-ink via-ink/70 absolute inset-0 bg-gradient-to-t to-transparent" />
